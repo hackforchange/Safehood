@@ -54,7 +54,7 @@ class MessagesController < ApplicationController
 
     
     if params[:message] =~ /^signup:/
-      #do signup process
+      #TODO: do signup process
       
       #update and send recent backlogged messages
       backlog = Message.backlogged(params[:incoming_number])
@@ -65,7 +65,7 @@ class MessagesController < ApplicationController
         send_nearby(@user,message) #TODO: look at this
       end
       if backlog.length > 0
-        $outbound_flocky.message "#{backlog.length} backlogged messages sent out", @user.phone, "from"
+        $outbound_flocky.message $app_phone, "#{backlog.length} backlogged messages sent out", @user.phone
       end
 
       return
@@ -76,7 +76,7 @@ class MessagesController < ApplicationController
     
     if @user.nil?
       #if they're not signed up, tell them to subscribe first
-      $outbound_flocky.message "WELCOME_SIGNUP_TEXT", params[:origin_number]
+      $outbound_flocky.message $app_phone, "WELCOME_SIGNUP_TEXT", params[:origin_number]
       @message = Message.create(:message=>params[:message])
       return
     end
@@ -88,7 +88,7 @@ class MessagesController < ApplicationController
       #send message out to everyone in range
       send_nearby(@user,params[:message])
     else
-      $outbound_flocky.message "SORRY_ERROR_TEXT", params[:origin_number]
+      $outbound_flocky.message $app_phone, "SORRY_ERROR_TEXT", params[:origin_number]
     end
     
     #return a 202 to tropo
@@ -98,7 +98,7 @@ class MessagesController < ApplicationController
   private
   def send_nearby(user,message)
     user.nearby_users.each do |u|
-        $outbound_flocky.message params[:message], u.phone, "from_number"
+        $outbound_flocky.message $app_phone params[:message], u.phone
     end
   end
   
