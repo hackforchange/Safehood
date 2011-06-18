@@ -98,12 +98,5 @@ class MessagesController < ApplicationController
     #return a 202 to tropo
     render :text=>"sent", :status=>202
   end
-  
-  private
-  def send_nearby(user,message)
-    user.nearby_users.each do |u|
-        $outbound_flocky.message $app_phone params[:message], u.phone
-    end
-  end
-  
+
 end
