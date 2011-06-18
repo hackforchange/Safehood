@@ -7,8 +7,25 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="container">
+    <div id="masthead">
+      <img id="logo" src="/images/simple-logo.png"/>
+      <div id="cool-blurb">
+      </div>
+    </div>
+    
+    <div id="content">
+      <%= yield %>
+    </div>
+    
+    <div id="footer"
+      <ul id="footer-links">
+        <li>About</li>
+        <li>Explore</li>
+        <li>Privacy</li>
+      </ul>
+    </div>
+    
+  </div>
 </body>
 </html>
