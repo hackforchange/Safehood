@@ -7,6 +7,8 @@ gem 'rails', '3.0.6'
 
 gem 'flocky', :git => 'git://github.com/codeforamerica/flocky.git'
 gem 'sqlite3'
+gem 'geokit'
+gem 'geokit-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'
