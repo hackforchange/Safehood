@@ -1,4 +1,25 @@
-Our App's Tropo #: (510) 221-3861
+SafeHood is helping people communicate with each other safely to 
+empower community collaboration around personal safety and 
+peace of mind.
 
-the following environment variables must be set:
-FLOCKY_TOKEN,FLOCKY_USERNAME,FLOCKY_PASSWORD,FLOCKY_APPNUM
+In practice this is an anonymous way for people to message their
+neighbors.
+
+## Hack for Change specific
+
+Our App's Tropo number: `(510) 221-3861`
+
+## Environment Variables
+
+The following environment variables must be set:
+
+  * FLOCKY_TOKEN
+  * FLOCKY_USERNAME
+  * FLOCKY_PASSWORD
+  * FLOCKY_APPNUM
+  
+To set environment variables in a UNIX based system, do something
+similar to the following:
+
+  * `export FLOCKY_TOKEN=<your_value_goes_here>`
+
