@@ -1,6 +1,7 @@
 Safehood::Application.routes.draw do
   resources :messages, :only=>[:index,:show,:new,:create]
-
+  root :to=> "messages#index"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
