@@ -5,3 +5,4 @@ require File.expand_path('../application', __FILE__)
 Safehood::Application.initialize!
 
 $outbound_flocky = Flocky.new ENV['FLOCKY_TOKEN'],ENV['FLOCKY_APPNUM'],{:username=>ENV['FLOCKY_USERNAME'],:password=>ENV['FLOCKY_PASSWORD']}, :queue => false
+$app_phone="5102213861"
