@@ -55,25 +55,28 @@ class MessagesController < ApplicationController
     
     if params[:message] =~ /^signup:/
       #TODO: do signup process
-      
+
       #update and send recent backlogged messages
       backlog = Message.backlogged(params[:incoming_number])
-      
-      backlog.each do |message|
-        message.update_attributes(:user=>@user,:location=>@user.location,:lat=>@user.lat,:lon=>@user.lon)
-        message.save
-        send_nearby(@user,message) #TODO: look at this
-      end
+
       if backlog.length > 0
+        nearby_phones = @user.nearby_users.map(&:phone)
+
+        backlog.each do |message|
+          message.update_attributes(:user=>@user,:location=>@user.location,:lat=>@user.lat,:lon=>@user.lon)
+          message.save
+          $outbound_flocky.message $app_phone, "sent at #{message.created_at}: #{message.message}", nearby_phones #TODO: format date
+        end
+
         $outbound_flocky.message $app_phone, "#{backlog.length} backlogged messages sent out", @user.phone
       end
 
       return
     end
-    
+
     #not signup, regular message
     @user = User.find_by_phone(params[:origin_number])
-    
+
     if @user.nil?
       #if they're not signed up, tell them to subscribe first
       $outbound_flocky.message $app_phone, "WELCOME_SIGNUP_TEXT", params[:origin_number]
@@ -86,7 +89,8 @@ class MessagesController < ApplicationController
     
     if @message.save
       #send message out to everyone in range
-      send_nearby(@user,params[:message])
+      nearby_phones = @user.nearby_users.map(&:phone)
+      $outbound_flocky.message $app_phone, message.message, nearby_phones #TODO: format date
     else
       $outbound_flocky.message $app_phone, "SORRY_ERROR_TEXT", params[:origin_number]
     end
