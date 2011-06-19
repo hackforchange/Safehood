@@ -61,7 +61,7 @@ class MessagesController < ApplicationController
     commands.each do |c|
       pattern = c.to_a.first
       function_name = "handle_#{c.to_a.last}".to_sym
-      if match = params[:message].match(/^#?#{pattern}:?(.*)/)
+      if match = params[:message].match(/^#?#{pattern}:?(.*)/i)
         self.send(function_name,match.to_a.last.strip, params[:origin_number])
         render :text=>"sent", :status=>202
         return
