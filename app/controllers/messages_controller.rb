@@ -1,7 +1,6 @@
 class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
-  include Geokit::Geocoders
   
   def index
     @messages = Message.all
