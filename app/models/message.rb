@@ -3,7 +3,7 @@ class Message < ActiveRecord::Base
   acts_as_mappable :lng_column_name => :lon
   
   cattr_reader :per_page
-  @@per_page = 20
+  @@per_page = 10
   
   before_save :set_fuzzy_loc!
   
