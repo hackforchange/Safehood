@@ -67,11 +67,12 @@ form input {
   float: right;
   width: 500px;
   margin: 0;
+  margin-bottom: 10px;
   font-size: 1em;
   padding: 12px 27px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  border-radius: 20px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
   background-color: rgba(251,233,81,.5);
   border: 2px solid #fbe951;
   }
