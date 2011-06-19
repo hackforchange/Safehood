@@ -1,38 +1,4 @@
 // Mapping logic
-
-/*var testData = [
-  {
-    'id': '8374987349873',
-    'message': 'This is a test message',
-    'lat': 37.77918,
-    'lon': -122.390953,
-    'location': 'Townsend and 2nd, San Francisco, CA',
-    'hashed_phone': '#3493oijf34ij4non4rij43900',
-    'hashed_ip': '#ndj98fehreef9fjsdf09',
-    'timestamp': new Date()
-  },
-  {
-    'id': '3874598374598743',
-    'message': 'This is a test message 02',
-    'lat': 37.77918,
-    'lon': -122.390953,
-    'location': 'Townsend and 2nd, San Francisco, CA',
-    'hashed_phone': '#3493oijf34ij4non4rij43900',
-    'hashed_ip': '#ndj98fehreef9fjsdf09',
-    'timestamp': new Date()
-  },
-  {
-    'id': '2772727272772',
-    'message': 'This is a test message 03',
-    'lat': 37.77918,
-    'lon': -122.390953,
-    'location': 'Townsend and 2nd, San Francisco, CA',
-    'hashed_phone': '#3493oijf34ij4non4rij43900',
-    'hashed_ip': '#ndj98fehreef9fjsdf09',
-    'timestamp': new Date()
-  }
-];*/
-
 if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
   jQuery.noConflict();
   var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/90480db8a5a4470d87c3c21800806e02/997/256/{z}/{x}/{y}.png';
@@ -48,16 +14,48 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
         var $LocationHelp = $('.location-help');
         
         // Start input map.  Update help since we have mapping capabilities.
-        $LocationHelp.html('Type in an address or cross street and we\'ll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong>');
+        $LocationHelp.html('Type in an address or cross street, then click <strong>Locate address</strong> we\'ll try to find that.  Move around the marker to make your location for more accurate.  <strong>We will never publish your address.</strong>');
         $LocationHelp.after('<div id="location-map"></div>');
         var map = new L.Map('location-map');
         var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
         var center = new L.LatLng(38, -97);
         map.setView(center, 3).addLayer(cloudmade);
         
-        // Add geolocating link
+        // Add input geolocating
+        $LocationInput.after('<a class="geolocate-address" href="#geolocate-address">Locate address</a>');
+        $('a.geolocate-address').click(function() {
+          var location = $LocationInput.val();
+          localGeocode($LocationInput.val(), function(result) {
+              result = result[0];
+              $LocationInput.val(result.formatted_address);
+              $('input#user_lat').val(result.geometry.location.lat());
+              $('input#user_lon').val(result.geometry.location.lng());
+              if (marker) {
+                map.removeLayer(marker);
+              }
+              var found = new L.LatLng(result.geometry.location.lat(), result.geometry.location.lng());
+              marker = new L.Marker(found, { 'draggable': true });
+              map.addLayer(marker);
+              map.setView(found, 14);
+                
+              // Handle moving of the marker
+              marker.on('dragend', function(e) {
+                var position = e.target.getLatLng();
+                localGeocode(position, function(result) {
+                  $LocationInput.val(result);
+                },
+                function(s) { });
+              });
+            },
+            function(s) {
+              alert('We could not find that address, please try again.');
+            }
+          );
+        });
+        
+        // Add browser geolocating link
         if (typeof Modernizr != 'undefined' && Modernizr.geolocation) {
-          $LocationHelp.html('Use the <strong>Find Me</strong> and we\'ll try to automatically find you.  Or type in an address or cross street and we\'ll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong>');
+          $LocationHelp.html('Use the <strong>Auto find Me</strong> and we\'ll try to automatically find you.  Or type in an address or cross street, then click <strong>Locate address</strong> and we\'ll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong>');
           $LocationLabel.after('<a class="geolocate-me" href="#geolocate">Auto find me</a>');
           $('.geolocate-me').click(function() {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -120,7 +118,7 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
         var geocoder = new google.maps.Geocoder();
         
         // Check what format we have
-        if (typeof location == 'String') {
+        if (typeof location.lat == 'undefined') {
           // Geocode address
           geocoder.geocode( { 'address': location}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
