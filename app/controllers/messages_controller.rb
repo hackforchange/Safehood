@@ -98,7 +98,7 @@ class MessagesController < ApplicationController
     transcript_json = JSON.parse(request.body.read)
     identifier = transcript_json['result']['identifier']
     transcript = transcript_json['result']['transcription']
-    params[:message] = transcript
+    params[:message] = "voice transcription: " + transcript
     params[:origin_number] = identifier
     receive
     
