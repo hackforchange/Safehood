@@ -2,10 +2,9 @@ Safehood::Application.routes.draw do
   resources :messages, :only=>[:index,:show,:new,:create] do
     collection do
       post "receive"
+      post "voice"
     end
   end
-  
-  match "messages/voice", :to=>"messages#voice"
   
   root :to=> "application#index"
   match 'about' => 'application#about'
