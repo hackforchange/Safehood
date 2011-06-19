@@ -77,7 +77,7 @@ class MessagesController < ApplicationController
     if @message.save
       #send message out to everyone in range
       nearby_phones = @user.nearby_users.map(&:phone)
-      $outbound_flocky.message $app_phone, message.message, nearby_phones #TODO: format date
+      $outbound_flocky.message $app_phone, @message.message, nearby_phones #TODO: format date
     else
       $outbound_flocky.message $app_phone, "SORRY_ERROR_TEXT", params[:origin_number]
     end
