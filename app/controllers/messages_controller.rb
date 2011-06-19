@@ -2,11 +2,11 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def self.get_message_list(params)
-    Message.all
+    Message.select([:created_at, :lat, :lon, :message]).all
   end
   
   def index
-    @messages = get_message_list
+    @messages = self.class.get_message_list(params)
 
     respond_to do |format|
       format.html # index.html.erb
