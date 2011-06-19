@@ -28,6 +28,10 @@ h1, h2, h3 {
   font-family: Prociono, Palatino, serif;
   margin: 0;
   }
+
+h2 {
+  margin-bottom: 10px;
+}
   
 form {
   padding: 5px 0;
@@ -63,11 +67,12 @@ form input {
   float: right;
   width: 500px;
   margin: 0;
+  margin-bottom: 5px;
   font-size: 1em;
   padding: 12px 27px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  border-radius: 20px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
   background-color: rgba(251,233,81,.5);
   border: 2px solid #fbe951;
   }
@@ -158,14 +163,17 @@ ul#list-messages {
   list-style: none;
   margin: 0;
   padding: 0;
-  width: 340px;
+  width: auto;
   } 
 
 ul#list-messages li {
   margin-bottom: 10px;
-  padding: 5px;
+  padding: 7px;
   background-color: rgb(33, 33, 33);
   background-color: rgba(33, 33, 33, 0.4);
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   }
   
 ul#list-messages li .message-date {
