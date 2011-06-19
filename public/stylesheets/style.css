@@ -77,11 +77,24 @@ h1, h2, h3 {
   font-family: Prociono, Palatino, serif;
   font-size: 1.3em;
   }
-  
+
+/**
+ * Message explorer
+ */
+.messages-explore-container {
+  width: 900px;
+  margin-bottom: 40px;
+}
 #map-messages {
   height: 300px;
+  width: 550px;
+  float: right;
+  margin-left: 20px;
 }
 
+/**
+ * Clearfix
+ */
 .clearfix:after {
 	content: ".";
 	display: block;

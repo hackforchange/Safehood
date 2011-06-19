@@ -1,11 +1,13 @@
 <h1>Explore messages</h1>
 
-<div id="list-messages">
-  <div class="message">
-    <% @messages.each do |message| %>
-      <%= link_to 'Show', message %>
-    <% end %>
+<div class="messages-explore-container clearfix">
+  <div id="map-messages"></div>
+  
+  <div id="list-messages">
+    <div class="message">
+      <% @messages.each do |message| %>
+        <%= link_to 'Show', message %>
+      <% end %>
+    </div>
   </div>
 </div>
-
-<div id="map-messages"></div>
