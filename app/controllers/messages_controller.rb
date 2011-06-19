@@ -71,6 +71,7 @@ class MessagesController < ApplicationController
         $outbound_flocky.message $app_phone, "#{backlog.length} backlogged messages sent out", @user.phone
       end
 
+      render :text=>"sent", :status=>202
       return
     end
 
@@ -80,12 +81,13 @@ class MessagesController < ApplicationController
     if @user.nil?
       #if they're not signed up, tell them to subscribe first
       $outbound_flocky.message $app_phone, "WELCOME_SIGNUP_TEXT", params[:origin_number]
-      @message = Message.create(:message=>params[:message])
+      @message = Message.create(:message=>params[:message],:phone=>params[:origin_number])
+      render :text=>"sent", :status=>202
       return
     end
     
     #we have a regular message, with a user
-    @message = Message.new(:user=>@user,:location=>@user.location,:lat=>@user.lat,:lon=>@user.lon,:message=>params[:message])
+    @message = Message.new(:user=>@user,:location=>@user.location,:lat=>@user.lat,:lon=>@user.lon,:message=>params[:message],:phone=>params[:origin_number])
     
     if @message.save
       #send message out to everyone in range
