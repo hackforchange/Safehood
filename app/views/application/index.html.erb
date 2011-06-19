@@ -1,6 +1,6 @@
 <div id="column-1" class="column">
   <div class="module clearfix">
-    <h2>Get neighborhood SMS alerts:</h2>
+    <h2>Get neighborhood SMS alerts</h2>
     <p>Begin tackling safety issues in your neighborhood today. Subscribe to real-time texts from your neighbors when they notice safety threats or problems in your neighborhood.</p>
     
     <%= form_for :user, :url=>create_user_path, :html=>{:class=> "subscribe-form"} do |f|%>
@@ -22,7 +22,7 @@
 
 <div id="column-2" class="column">
   <div class="module">
-    <h2>Recent messages from Oakland, CA:</h2>
+    <h2>Recent messages</h2>
       <div class="messages-explore-container clearfix">
         <ul id="list-messages">
           <%= render :partial=>"messages/message", :collection => @messages %>
