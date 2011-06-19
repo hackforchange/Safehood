@@ -7,7 +7,9 @@ neighbors.
 
 ## Hack for Change specific
 
-Our App's Tropo number: `(510) 221-3861`
+Our App's Tropo number: `(510) 221-3861
+
+Note: our Tropo scripts (for handling voice/SMS sending and receiving) live on their website. We have copies of them in /public/rb/.`
 
 ## Environment Variables
 
