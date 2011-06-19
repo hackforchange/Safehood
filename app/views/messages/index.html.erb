@@ -1,20 +1,13 @@
-<h1>Listing messages</h1>
+<h1>Explore messages</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @messages.each do |message| %>
-  <tr>
-    <td><%= link_to 'Show', message %></td>
-    <td><%= link_to 'Destroy', message, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Message', new_message_path %>
+<div class="messages-explore-container clearfix">
+  <div id="map-messages"></div>
+  
+  <div id="list-messages">
+    <div class="message">
+      <% @messages.each do |message| %>
+        <%= link_to 'Show', message %>
+      <% end %>
+    </div>
+  </div>
+</div>
