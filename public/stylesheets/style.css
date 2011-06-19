@@ -6,3 +6,7 @@ body {
 #logo {
   height: 80px;
   }
+  
+#map-messages {
+  height: 300px;
+}
