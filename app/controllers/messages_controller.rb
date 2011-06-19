@@ -96,12 +96,20 @@ class MessagesController < ApplicationController
     address=message
     res=Geocoder.search(address)
     
-    @user = if res
-      lat,lon = res[0].coordinates
-      User.new(:phone=>number,:location=>address,:lat=>lat ,:lon=>lon , :radius=>'0.5', :active=>true)
+    if User.find_by_phone(number)
+      $outbound_flocky.message $app_phone, "You're already signed up! you can text \"changeaddress: \" to change your address.", number
+      return
     end
     
-    unless @user.present? && @user.save
+    if res.empty?
+      $outbound_flocky.message $app_phone, "Sorry, we couldn't find that where that is. Please make sure you include the city or zip code", number
+      return
+    end
+    
+    lat,lon = res[0].coordinates
+    @user = User.new(:phone=>number,:location=>address,:lat=>lat ,:lon=>lon , :radius=>'0.5', :active=>true)
+    
+    unless @user.save
       $outbound_flocky.message $app_phone, "Sorry, there was an error with signup", number
       return
     end
