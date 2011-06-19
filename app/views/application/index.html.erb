@@ -5,14 +5,22 @@
   <form>
   <input name="phone-number" type="text" value="Your phone #" />
   <input name="location" type="text" value="Your location (either your address--we won't share it!--or a nearby street intersection)" />
-  <input name="Sign up!" type="submit" />
+  <input value="Sign up!" type="submit" />
   </form>
   </div>
 </div>
 
 <div id="column-2" class="column">
   <div class="module">
-<%= link_to 'New Message', new_message_path %>
+    <h2>Recent messages from Oakland, CA:</h2>
+    <div id="list-messages">
+      <div class="message">
+          <% if false %><% @messages.each do |message| %>
+            <%= link_to 'Show', message %>
+          <% end %> <% end %>
+      </div>
+    </div>
+    <%= link_to 'Add your own message', new_message_path %>
   </div>
 
 </div>
