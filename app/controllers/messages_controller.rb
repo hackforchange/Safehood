@@ -57,7 +57,7 @@ class MessagesController < ApplicationController
     params[:incoming_number] = $1 if params[:incoming_number]=~/^1(\d{10})$/
     params[:origin_number] = $1 if params[:origin_number]=~/^1(\d{10})$/
     
-    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\w_]*address","change_address"],["help"],["nyan"],["num"]]
+    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\w_]*address","change_address"],["help"],["nyan"],["num"],["mute"],["unmute"]]
     commands.each do |c|
       pattern = c.first
       function_name = "handle_#{c.last}".to_sym
@@ -105,8 +105,8 @@ class MessagesController < ApplicationController
   end
   
   private
-
-  def require_signup(number,response="You need to be subscribed to use this message. text '#signup' with your address to sign up")
+  
+  def require_signup(number,response="You aren't signed up with this phone number. text '#signup' with your address to sign up")
     @user=User.find_by_phone(number)
     message response, number if @user.nil?
     @user
@@ -155,14 +155,14 @@ class MessagesController < ApplicationController
   end
   
   def handle_unsubscribe(message, number)
-    return unless require_signup number,"You aren't subscribed to the system on this phone number"
+    return unless require_signup number
     
     @user.destroy
     message "You have been removed from the system", number
   end
   
   def handle_change_address(message,number)
-    return unless require_signup number,"You aren't subscribed to the system on this phone number"
+    return unless require_signup number
     
     address=message
     res=Geocoder.search(address)
@@ -184,7 +184,7 @@ class MessagesController < ApplicationController
   end
   
   def handle_help(message,number)
-    message "available commands: #changeaddress, #removeme, #signup, #help, #num"
+    message "available commands: #changeaddress, #removeme, #signup, #help, #num, #mute, #unmute"
   end
   
   def handle_nyan(message,number)
@@ -197,6 +197,18 @@ class MessagesController < ApplicationController
     message "Messages from your location will reach #{helper.pluralize(count,'member')}",number
   end
   
+  def handle_mute(message,number)
+    return unless require_signup number
+    @user.update_attribute(:active,false)
+    message "You have been muted. You will receive no further messages. You can text '#unmute' to resume",number
+  end
+  
+  def handle_unmute(message,number)
+    return unless require_signup number
+    @user.update_attribute(:active,true)
+    message "You have been unmuted. You will begin receiving messages again", number
+  end
+    
   def message(msg,number)
     puts "sending '#{msg}' to #{number}"
     $outbound_flocky.message $app_phone, msg, number
