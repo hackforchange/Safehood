@@ -204,7 +204,7 @@ class MessagesController < ApplicationController
   end
   
   def handle_help(message,number)
-    message "available commands: #changeaddress, #removeme, #signup, #help, #num, #mute, #unmute"
+    message "available commands: #changeaddress, #removeme, #signup, #help, #num, #mute, #unmute", number
   end
   
   def handle_nyan(message,number)
