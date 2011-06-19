@@ -105,9 +105,16 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
           for (var i in data) {
             msg = data[i].message;
             if (msg) {
-              markers[i] = new L.Marker(new L.LatLng(msg.lat, msg.lon));
-              map.addLayer(markers[i]);
-              markers[i].bindPopup(msg.message);
+              if ((msg.lat != null) && (msg.lon != null)) {
+                markers[i] = new L.Marker(new L.LatLng(msg.lat, msg.lon));
+                
+                var date = new Date(msg.created_at);
+                map.addLayer(markers[i]);
+                markers[i].bindPopup('<div class="popup">' +
+                  '<div class="popup-date">' + date.format('m/dd/yy h:MM TT') + '</div>' +
+                  '<div class="popup-message">' + msg.message + '</div>' +
+                  '</div>');
+              } 
             }
           }
         });

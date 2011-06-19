@@ -288,6 +288,21 @@ a.geolocate-address {
 }
 
 /**
+ * Map popups
+ */
+.popup {
+  font-size: 1.2em;
+}
+
+.popup-date {
+  font-size: .8em;
+  font-weight: bold;
+  text-align: right;
+  border-bottom: 1px solid #888888;
+  margin-bottom: 10px;
+}
+
+/**
  * Clearfix
  */
 .clearfix:after {
