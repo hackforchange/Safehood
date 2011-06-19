@@ -41,7 +41,7 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
   (function($) {
     $(document).ready(function() {
       // Signup location map
-      var $LocationInput = $('.location-input');
+      var $LocationInput = $('#user_location');
       if ($LocationInput.length) {
         var $LocationLabel = $('.location-label');
         var $LocationHelp = $('.location-help');
@@ -64,8 +64,8 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
               map.addLayer(marker);
               map.setView(found, 14);
               
-              $('input[name="location-lat"]').val(position.coords.latitude);
-              $('input[name="location-lon"]').val(position.coords.longitude);
+              $('input#user_lat').val(position.coords.latitude);
+              $('input#user_lon').val(position.coords.longitude);
               localGeocode({ 'lat': position.coords.latitude, 'lng': position.coords.longitude}, 
                 function(result) {
                   $LocationInput.val(result);
