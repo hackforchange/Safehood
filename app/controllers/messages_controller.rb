@@ -87,6 +87,9 @@ class MessagesController < ApplicationController
     render :text=>"sent", :status=>202
   end
   
+  def voice()
+  end
+  
   private
   def handle_signup(message, number)
   #TODO: do signup process

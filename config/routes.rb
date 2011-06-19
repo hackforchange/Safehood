@@ -5,5 +5,7 @@ Safehood::Application.routes.draw do
     end
   end
   
+  match "messages/voice", :to=>"messages#voice"
+  
   root :to=> "application#index"
 end
