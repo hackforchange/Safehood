@@ -52,12 +52,16 @@ class MessagesController < ApplicationController
   def receive
     params[:incoming_number] = $1 if params[:incoming_number]=~/^1(\d{10})$/
     params[:origin_number] = $1 if params[:origin_number]=~/^1(\d{10})$/
-
-
-    if params[:message] =~ /^signup:/
-      handle_signup(params[:message], params[:origin_number])
-      render :text=>"sent", :status=>202
-      return
+    
+    commands = ["signup","unsubscribe",["removeme","unsubscribe"],["change[\w_]*address","change_address"]]
+    commands.each do |c|
+      pattern = c.to_a.first
+      function_name = "handle_#{c.to_a.last}".to_sym
+      if match = params[:message].match(/^#?#{pattern}:?(.*)/)
+        self.send(function_name,match.to_a.last.strip, params[:origin_number])
+        render :text=>"sent", :status=>202
+        return
+      end
     end
 
     #not signup, regular message
@@ -65,7 +69,7 @@ class MessagesController < ApplicationController
 
     if @user.nil?
       #if they're not signed up, tell them to subscribe first
-      $outbound_flocky.message $app_phone, "Hi! Thanks for your message. If you'd like to stay in touch with whats going on in your neighborhood, please text back signup: and put your street address afterwards. Thanks!", params[:origin_number]
+      message "Hi! Thanks for your message. If you'd like to stay in touch with whats going on in your neighborhood, please text back signup: and put your street address afterwards. Thanks!", params[:origin_number]
       @message = Message.create(:message=>params[:message],:phone=>params[:origin_number])
       render :text=>"sent", :status=>202
       return
@@ -77,9 +81,9 @@ class MessagesController < ApplicationController
     if @message.save
       #send message out to everyone in range
       nearby_phones = @user.nearby_users.map(&:phone)
-      $outbound_flocky.message $app_phone, @message.message, nearby_phones #TODO: format date
+      message @message.message, nearby_phones #TODO: format date
     else
-      $outbound_flocky.message $app_phone, "SORRY_ERROR_TEXT", params[:origin_number]
+      message "SORRY_ERROR_TEXT", params[:origin_number]
     end
     
     #return a 202 to tropo
@@ -89,16 +93,24 @@ class MessagesController < ApplicationController
   private
   def handle_signup(message, number)
   #TODO: do signup process
-    address = message.sub(/^signup:/,'')
+    address=message
     res=Geocoder.search(address)
     
-    @user = if res
-      lat,lon = res[0].coordinates
-      User.new(:phone=>number,:location=>address,:lat=>lat ,:lon=>lon , :radius=>'0.5', :active=>true)
+    if User.find_by_phone(number)
+      message "You're already signed up! you can text \"changeaddress: \" to change your address.", number
+      return
     end
     
-    unless @user.present? && @user.save
-      $outbound_flocky.message $app_phone, "Sorry, there was an error with signup", number
+    if res.empty?
+      message "Sorry, we couldn't find that where that is. Please make sure you include the city or zip code", number
+      return
+    end
+    
+    lat,lon = res[0].coordinates
+    @user = User.new(:phone=>number,:location=>address,:lat=>lat ,:lon=>lon , :radius=>'0.5', :active=>true)
+    
+    unless @user.save
+      message "Sorry, there was an error with signup", number
       return
     end
     
@@ -112,14 +124,55 @@ class MessagesController < ApplicationController
       backlog.each do |message|
         message.update_attributes(:user=>@user,:location=>@user.location,:lat=>@user.lat,:lon=>@user.lon)
         message.save
-        $outbound_flocky.message $app_phone, "sent at #{message.created_at}: #{message.message}", nearby_phones #TODO: format date
+        message "sent at #{message.created_at}: #{message.message}", nearby_phones #TODO: format date
       end
 
       signup_message += ", #{backlog.length} backlogged messages sent out"
     end
     
-    $outbound_flocky.message $app_phone, signup_message, number
+    message signup_message, number
   end
   
+  def handle_unsubscribe(message, number)
+    @user=User.find_by_phone(number)
+    if @user.nil?
+      message "You aren't subscribed to the system on this phone number", number
+      return
+    end
+    
+    @user.destroy
+    message "You have been removed from the system", number
+  end
+  
+  def handle_change_address(message,number)
+    @user=User.find_by_phone(number)
+    if @user.nil?
+      message "You aren't subscribed to the system on this phone number", number
+      return
+    end
+    
+    address=message
+    res=Geocoder.search(address)
+    
+    if res.empty?
+      message "Sorry, we couldn't find that where that is. Please make sure you include the city or zip code", number
+      return
+    end
+    
+    lat,lon = res[0].coordinates
+    @user.update_attributes(:lat=>lat,:lon=>lon,:location=>address)
+    
+    unless @user.save
+      message "Sorry, there was an error with changing", number
+      return
+    end
+    
+    message "Address changed!", number
+  end
+  
+  def message(msg,number)
+    puts "sending '#{msg}' to #{number}"
+    $outbound_flocky.message $app_phone, msg, number
+  end
   
 end
