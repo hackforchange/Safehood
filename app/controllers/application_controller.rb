@@ -12,4 +12,19 @@ class ApplicationController < ActionController::Base
   end
   def privacy
   end
+  
+  def signup_user
+    res=Geocoder.search(address)
+    if res
+      lat,lon = res[0].coordinates
+      @user = User.new(:phone=>params[:phone],:location=>location,:lat=>lat,:lon=>lon,:active=>false)
+    end
+    
+    if @user.present? && @user.save
+      $outbound_flocky.message $app_num,"You have been signed up for safehood. To confirm and receive messages, text '#confirm' to this number",params[:phone]
+    end
+    
+    redirect_to :action=>:index
+  end
+
 end

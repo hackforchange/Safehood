@@ -63,7 +63,7 @@ class MessagesController < ApplicationController
     params[:incoming_number] = $1 if params[:incoming_number]=~/^1(\d{10})$/
     params[:origin_number] = $1 if params[:origin_number]=~/^1(\d{10})$/
     
-    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\w_]*address","change_address"],["help"],["nyan"],["num"],["mute"],["unmute"]]
+    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\w_]*address","change_address"],["help"],["nyan"],["num"],["mute"],["unmute"],["confirm"]]
     commands.each do |c|
       pattern = c.first
       function_name = "handle_#{c.last}".to_sym
@@ -160,6 +160,12 @@ class MessagesController < ApplicationController
     message signup_message, number
   end
   
+  def handle_confirm(message,number)
+    return unless require_signup(number)
+    @user.update_attribute(:active,true)
+    message "Thanks for signing up!", number
+  end
+  
   def handle_unsubscribe(message, number)
     return unless require_signup number
     
@@ -214,7 +220,7 @@ class MessagesController < ApplicationController
     @user.update_attribute(:active,true)
     message "You have been unmuted. You will begin receiving messages again", number
   end
-    
+
   def message(msg,number)
     puts "sending '#{msg}' to #{number}"
     $outbound_flocky.message $app_phone, msg, number
