@@ -57,11 +57,11 @@ class MessagesController < ApplicationController
     params[:incoming_number] = $1 if params[:incoming_number]=~/^1(\d{10})$/
     params[:origin_number] = $1 if params[:origin_number]=~/^1(\d{10})$/
     
-    commands = ["signup","unsubscribe",["removeme","unsubscribe"],["change[\w_]*address","change_address"]]
+    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\w_]*address","change_address"]]
     commands.each do |c|
-      pattern = c.to_a.first
-      function_name = "handle_#{c.to_a.last}".to_sym
-      if match = params[:message].match(/^#?#{pattern}:?(.*)/)
+      pattern = c.first
+      function_name = "handle_#{c.last}".to_sym
+      if match = params[:message].match(/^#?#{pattern}:?(.*)/i)
         self.send(function_name,match.to_a.last.strip, params[:origin_number])
         render :text=>"sent", :status=>202
         return
