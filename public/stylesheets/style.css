@@ -178,14 +178,17 @@ ul#list-messages {
   list-style: none;
   margin: 0;
   padding: 0;
-  width: 340px;
+  width: auto;
   } 
 
 ul#list-messages li {
   margin-bottom: 10px;
-  padding: 5px;
+  padding: 7px;
   background-color: rgb(33, 33, 33);
   background-color: rgba(33, 33, 33, 0.4);
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+ 	-webkit-border-radius: 5px;
   }
   
 ul#list-messages li .message-date {
@@ -242,6 +245,9 @@ a.geolocate-me {
   width: 100px;
   float: right;
   text-align: right;
+  background: url('/images/geolocation_icon.png') center right no-repeat;
+  padding-right: 20px;
+  height: 16px;
 }
 
 a.geolocate-address {
