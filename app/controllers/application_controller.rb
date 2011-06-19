@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
   def privacy
   end
   
+  def commands
+  end
+  
   def create_user
     p=params[:user]
     if p[:lat] && p[:lon]
