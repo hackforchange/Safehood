@@ -57,7 +57,7 @@ class MessagesController < ApplicationController
     params[:incoming_number] = $1 if params[:incoming_number]=~/^1(\d{10})$/
     params[:origin_number] = $1 if params[:origin_number]=~/^1(\d{10})$/
     
-    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\w_]*address","change_address"]]
+    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\w_]*address","change_address"],["help"],["nyan"],["num"]]
     commands.each do |c|
       pattern = c.first
       function_name = "handle_#{c.last}".to_sym
@@ -105,6 +105,8 @@ class MessagesController < ApplicationController
   end
   
   private
+  
+  
   def handle_signup(message, number)
   #TODO: do signup process
     address=message
@@ -182,6 +184,24 @@ class MessagesController < ApplicationController
     end
     
     message "Address changed!", number
+  end
+  
+  def handle_help(message,number)
+    message "available commands: #changeaddress, #removeme, #signup, #help, #num"
+  end
+  
+  def handle_nyan(message,number)
+    message ":3", number
+  end
+  
+  def handle_num(message,number)
+    @user=User.find_by_phone(number)
+    if @user.nil?
+      message "You need to be subscribed to use this message. text '#signup' with your address to sign up", number
+      return
+    end
+    count = @user.nearby_users.count
+    message "Messages from your location will reach #{helper.pluralize(count,'member')}",number
   end
   
   def message(msg,number)
