@@ -52,12 +52,16 @@ class MessagesController < ApplicationController
   def receive
     params[:incoming_number] = $1 if params[:incoming_number]=~/^1(\d{10})$/
     params[:origin_number] = $1 if params[:origin_number]=~/^1(\d{10})$/
-
-
-    if params[:message] =~ /^signup:/
-      handle_signup(params[:message], params[:origin_number])
-      render :text=>"sent", :status=>202
-      return
+    
+    commands = ["signup","unsubscribe",["removeme","unsubscribe"],["change[\w_]*address","change_address"]]
+    commands.each do |c|
+      pattern = c.to_a.first
+      function_name = "handle_#{c.to_a.last}".to_sym
+      if match = params[:message].match(/^#?#{c}:?(.*)/)
+        self.send(function_name,match.to_a.last.strip, params[:origin_number])
+        render :text=>"sent", :status=>202
+        return
+      end
     end
 
     #not signup, regular message
@@ -89,7 +93,7 @@ class MessagesController < ApplicationController
   private
   def handle_signup(message, number)
   #TODO: do signup process
-    address = message.sub(/^signup:/,'')
+    address=message
     res=Geocoder.search(address)
     
     @user = if res
@@ -121,5 +125,12 @@ class MessagesController < ApplicationController
     $outbound_flocky.message $app_phone, signup_message, number
   end
   
+  def handle_unsubscribe(message, number)
+    #todo
+  end
+  
+  def handle_change_address(message,number)
+    #todo
+  end
   
 end
