@@ -105,7 +105,12 @@ class MessagesController < ApplicationController
   end
   
   private
-  
+
+  def require_signup(number,response="You need to be subscribed to use this message. text '#signup' with your address to sign up")
+    @user=User.find_by_phone(number)
+    message response, number if @user.nil?
+    @user
+  end
   
   def handle_signup(message, number)
   #TODO: do signup process
@@ -150,22 +155,14 @@ class MessagesController < ApplicationController
   end
   
   def handle_unsubscribe(message, number)
-    @user=User.find_by_phone(number)
-    if @user.nil?
-      message "You aren't subscribed to the system on this phone number", number
-      return
-    end
+    return unless require_signup number,"You aren't subscribed to the system on this phone number"
     
     @user.destroy
     message "You have been removed from the system", number
   end
   
   def handle_change_address(message,number)
-    @user=User.find_by_phone(number)
-    if @user.nil?
-      message "You aren't subscribed to the system on this phone number", number
-      return
-    end
+    return unless require_signup number,"You aren't subscribed to the system on this phone number"
     
     address=message
     res=Geocoder.search(address)
@@ -195,11 +192,7 @@ class MessagesController < ApplicationController
   end
   
   def handle_num(message,number)
-    @user=User.find_by_phone(number)
-    if @user.nil?
-      message "You need to be subscribed to use this message. text '#signup' with your address to sign up", number
-      return
-    end
+    return unless require_signup(number)
     count = @user.nearby_users.count
     message "Messages from your location will reach #{helper.pluralize(count,'member')}",number
   end
