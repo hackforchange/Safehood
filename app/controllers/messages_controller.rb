@@ -2,7 +2,13 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def self.get_message_list(params)
-    Message.safe_fields.paginate(:page=>params[:page],:order=>"created_at DESC")
+    m=Message.safe_fields
+    if params[:bbox]
+      arr = JSON.parse(params[:bbox]) unless params[:bbox].is_a? Array
+      m=m.boundbox(*arr)
+    end
+    m=m.textsearch(params[:q]) if params[:q]
+    m.paginate(:page=>params[:page],:order=>"created_at DESC")
   end
   
   def index
