@@ -1,9 +1,12 @@
 class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
+  def self.get_message_list(params)
+    Message.all
+  end
   
   def index
-    @messages = Message.all
+    @messages = get_message_list
 
     respond_to do |format|
       format.html # index.html.erb
