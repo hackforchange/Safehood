@@ -66,7 +66,7 @@ class MessagesController < ApplicationController
     params[:incoming_number] = $1 if params[:incoming_number]=~/^1(\d{10})$/
     params[:origin_number] = $1 if params[:origin_number]=~/^1(\d{10})$/
     
-    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\w_]*address","change_address"],["help"],["nyan"],["num"],["mute"],["unmute"],["confirm"]]
+    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\s_]*address","change_address"],["help"],["nyan"],["num"],["mute"],["unmute"],["confirm"]]
     commands.each do |c|
       pattern = c.first
       function_name = "handle_#{c.last}".to_sym
