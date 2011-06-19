@@ -211,6 +211,15 @@ class MessagesController < ApplicationController
     message ":3", number
   end
   
+  def helper
+    Helper.instance
+  end
+
+  class Helper
+    include Singleton
+    include ActionView::Helpers::TextHelper
+  end
+  
   def handle_num(message,number)
     return unless require_signup(number)
     count = @user.nearby_users.count
