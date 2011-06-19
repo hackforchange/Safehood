@@ -16,8 +16,12 @@ a:hover, a:active {
   color: #025744;
   }
   
+a img {
+  border: none;
+  }
+  
 p {
-  margin: 2px 0;
+  margin: 5px 0;
   }
   
 h1, h2, h3 {
@@ -85,6 +89,10 @@ form input {
   
 #column-2 {
   margin-left: 430px;
+  }
+  
+#single-column {
+  width: 820px;
   }
   
 .module {
@@ -201,6 +209,12 @@ form.subscribe-form .subscribe-submit {
 form.subscribe-form .subscribe-submit:hover,
 form.subscribe-form .subscribe-submit:active {
   background-color: rgb(111, 238, 210);
+}
+
+#location-map {
+  width: 360px;
+  height: 200px;
+  margin-bottom: 10px;
 }
 
 /**

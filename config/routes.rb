@@ -6,4 +6,6 @@ Safehood::Application.routes.draw do
   end
   
   root :to=> "application#index"
+  match 'about' => 'application#about'
+  match 'privacy' => 'application#privacy'
 end
