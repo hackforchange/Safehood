@@ -90,7 +90,14 @@ class MessagesController < ApplicationController
     render :text=>"sent", :status=>202
   end
   
-  def voice()
+  def voice
+    transcript_json = JSON.parse(request.body.read)
+    identifier = transcript_json['result']['identifier']
+    transcript = transcript_json['result']['transcription']
+    params[:message] = transcript
+    params[:origin_number] = identifier
+    receive
+    
   end
   
   private
