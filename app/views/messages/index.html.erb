@@ -1,13 +1,14 @@
-<div id="single-column" class="column">
-<div class="module clearfix">
-<h1>Explore messages:</h1>
-<div class="messages-explore-container clearfix">
-  <div id="map-messages"></div>
-  
-  <ul id="list-messages">
-    <%= render :partial=>"message", :collection => @messages %>
-  </ul>
-
-</div>
-</div>
+<div id="single-column" class="column explore-messages">
+  <div class="module">
+    <h1>Explore messages</h1>
+    <div class="messages-explore-container">
+      <div id="map-messages"></div>
+      
+      <h2>Recent messages</h2>
+      <ul id="list-messages">
+        <%= render :partial=>"message", :collection => @messages %>
+      </ul>
+    
+    </div>
+  </div>
 </div>

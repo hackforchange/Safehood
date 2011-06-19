@@ -167,8 +167,9 @@ form input {
   
 #map-messages {
   height: 300px;
-  width: 550px;
-  float: right;
+  width: auto;
+  margin-bottom: 20px;
+  margin-top: 10px;
   }
   
 ul#list-messages {

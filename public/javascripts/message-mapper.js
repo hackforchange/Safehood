@@ -99,7 +99,7 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
           var map = new L.Map('map-messages');
           var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
           var center = new L.LatLng(37.77917, -122.390903);
-          map.setView(center, 14).addLayer(cloudmade);
+          map.setView(center, 10).addLayer(cloudmade);
           
           markers = [];
           for (var i in data) {
