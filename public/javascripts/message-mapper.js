@@ -95,8 +95,8 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
     
       // Message explorer map
       if ($('#map-messages').length) {
+        var map = new L.Map('map-messages');
         $.getJSON("/messages/", function(data) {
-          var map = new L.Map('map-messages');
           var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
           var center = new L.LatLng(37.77917, -122.390903);
           map.setView(center, 10).addLayer(cloudmade);
@@ -118,6 +118,21 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
             }
           }
         });
+        
+        // Add geolocating link
+        if (typeof Modernizr != 'undefined' && Modernizr.geolocation) {
+          $('h1').before('<a class="geolocate-me" href="#geolocate">Auto find me</a>');
+          $('.geolocate-me').click(function() {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var found = new L.LatLng(position.coords.latitude, position.coords.longitude);
+              map.setView(found, 16);
+            }, function(error) {
+              alert('Could not find you, trying typing in an address or intersection.');
+            }, {enableHighAccuracy: true});
+            
+            return false;
+          });
+        }
       }
       
       // Geocoding function

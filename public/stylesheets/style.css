@@ -200,6 +200,12 @@ ul#list-messages li .message-date {
   text-align: right;
   }
   
+.explore-messages .geolocate-me {
+  float: right;
+  display: block;
+  width: 200px;
+}
+  
 /**
  * Front subscribe form.
  */
