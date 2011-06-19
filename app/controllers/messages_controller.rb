@@ -1,20 +1,24 @@
 class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
+  def self.get_message_list(params)
+    Message.safe_fields.all
+  end
   
   def index
-    @messages = Message.all
+    @messages = self.class.get_message_list(params)
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @messages }
+      format.json  { render :json => @messages }
     end
   end
 
   # GET /messages/1
   # GET /messages/1.xml
   def show
-    @message = Message.find(params[:id])
+    @message = Message.safe_fields.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

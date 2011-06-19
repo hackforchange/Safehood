@@ -1,0 +1,4 @@
+<li id="message-<%= message.id %>" class="message">
+  <div class="message-date"><%= time_ago_in_words(message.created_at) %></div>
+  <p><%= message.message %></p>
+</li>

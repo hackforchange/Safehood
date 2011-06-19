@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   def index
-    @messages = Message.all
+    @messages = MessagesController.get_message_list(params)
 
     respond_to do |format|
       format.html # index.html.erb
