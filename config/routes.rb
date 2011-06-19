@@ -5,5 +5,5 @@ Safehood::Application.routes.draw do
     end
   end
   
-  root :to=> "messages#index"
+  root :to=> "application#index"
 end
