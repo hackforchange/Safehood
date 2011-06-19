@@ -44,9 +44,11 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
       var $LocationInput = $('.location-input');
       if ($LocationInput.length) {
         var $LocationLabel = $('.location-label');
+        var $LocationHelp = $('.location-help');
         
         // Start map
-        $LocationInput.after('<div id="location-map"></div>');
+        
+        $LocationHelp.show().after('<div id="location-map"></div>');
         var map = new L.Map('location-map');
         var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
         var center = new L.LatLng(38, -97);
