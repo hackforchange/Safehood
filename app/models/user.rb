@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
     bounds_sql = "lat>#{b.sw.lat} AND lat<#{b.ne.lat} AND #{lng_sql}"
     
 
-    self.class.where(bounds_sql).where("id <> ?",self.id)
+    self.class.where(bounds_sql).where("id <> ? AND active = ?",self.id,true)
   end
 
 end
