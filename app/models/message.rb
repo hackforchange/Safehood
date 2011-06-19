@@ -5,6 +5,13 @@ class Message < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 20
   
+  before_save :set_fuzzy_loc!
+  
+  def set_fuzzy_loc!
+    self.fuzzy_lat = self.lat.round(3)+(rand(101)-50)/1e5 if self.lat
+    self.fuzzy_lon = self.lon.round(3)+(rand(101)-50)/1e5 if self.lon
+  end
+  
   class << self
 
     def backlogged(phone_number)
@@ -12,7 +19,7 @@ class Message < ActiveRecord::Base
     end
     
     def safe_fields
-      select([:created_at, :lat, :lon, :message])
+      select("created_at, message, fuzzy_lat as lat, fuzzy_lon as lon")
     end
     
     def textsearch(q)
