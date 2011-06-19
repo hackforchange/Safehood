@@ -1,6 +1,8 @@
 class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
+  include Geokit::Geocoders
+  
   def index
     @messages = Message.all
 
@@ -54,7 +56,7 @@ class MessagesController < ApplicationController
 
 
     if params[:message] =~ /^signup:/
-      handle_signup
+      handle_signup(params[:message], params[:origin_number])
       render :text=>"sent", :status=>202
       return
     end
@@ -64,7 +66,7 @@ class MessagesController < ApplicationController
 
     if @user.nil?
       #if they're not signed up, tell them to subscribe first
-      $outbound_flocky.message $app_phone, "WELCOME_SIGNUP_TEXT", params[:origin_number]
+      $outbound_flocky.message $app_phone, "Hi! Thanks for your message. If you'd like to stay in touch with whats going on in your neighborhood, please text back signup: and put your street address afterwards. Thanks!", params[:origin_number]
       @message = Message.create(:message=>params[:message],:phone=>params[:origin_number])
       render :text=>"sent", :status=>202
       return
@@ -86,11 +88,21 @@ class MessagesController < ApplicationController
   end
   
   private
-  def handle_signup(message)
+  def handle_signup(message, number)
   #TODO: do signup process
-
+    address = message.sub(/^signup:/,'')
+    res=MultiGeocoder.geocode(address)
+    
+    @user = User.new(:phone=>number,:location=>address,:lat=>res.lat ,:lon=>res.lon , :radius=>'0.5', :active=>true)
+    
+    unless @user.save
+      $outbound_flocky.message $app_phone, "Sorry, there was an error with signup", number
+      return
+    end
+    
     #update and send recent backlogged messages
-    backlog = Message.backlogged(params[:incoming_number])
+    backlog = Message.backlogged(number)
+    signup_message = "Thanks for signing up!"
 
     if backlog.length > 0
       nearby_phones = @user.nearby_users.map(&:phone)
@@ -101,9 +113,10 @@ class MessagesController < ApplicationController
         $outbound_flocky.message $app_phone, "sent at #{message.created_at}: #{message.message}", nearby_phones #TODO: format date
       end
 
-      $outbound_flocky.message $app_phone, "#{backlog.length} backlogged messages sent out", @user.phone
+      signup_message += ", #{backlog.length} backlogged messages sent out"
     end
     
+    $outbound_flocky.message $app_phone, signup_message, number
   end
   
   
