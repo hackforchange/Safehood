@@ -3,18 +3,20 @@
     <h2>Get neighborhood SMS alerts:</h2>
     <p>Is that guy on the corner a drug dealer? Give us your phone number and location and receive texts from your neighbors when they notice safety threats or problems in your neighborhood.</p>
     
-    <form class="subscribe-form">
-      <label class="phone-label">Your phone #</label>
-      <input class="phone-input" name="phone" type="text" size="10" value="" />
+    <%= form_for :user, :url=>create_user_path, :html=>{:class=> "subscribe-form"} do |f|%>
+      <%= f.label :phone, "Your Phone", :class=>"phone-label" %>
+      <%= f.text_field :phone, :size=>10, :class=>"phone-input" %>
       
-      <label class="location-label">Your location</label>
-      <input class="location-input" name="location" type="text" size="45" value="" />
-      <div class="location-help">Use the <strong>Find Me</strong> and we'll try to automatically find you.  Or type in an address or cross street and we'll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong></strong></div>
-      <input name="location-lat" type="hidden" />
-      <input name="location-lon" type="hidden" />
+      <%= f.label :location, "Your Location", :class=>"location-label" %>
+      <%= f.text_field :location, :size=>45, :class=>"location-input" %>
       
-      <input class="subscribe-submit" value="Sign up!" type="submit" />
-    </form>
+      <div class="location-help">Use the <strong>Find Me</strong> and we'll try to automatically find you.  Or type in an address or cross street and we'll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong></div>
+      
+      <%= f.hidden_field :lat %><%= f.hidden_field :lon %>
+      
+      <%= f.submit "Sign Up!", :class=>"subscribe-submit" %>
+
+    <% end %>
   </div>
 </div>
 
