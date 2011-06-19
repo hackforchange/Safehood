@@ -209,6 +209,13 @@ form.subscribe-form .subscribe-submit:active {
   margin-bottom: 10px;
 }
 
+a.geolocate-me {
+  font-size: .8em;
+  width: 100px;
+  float: right;
+  text-align: right;
+}
+
 /**
  * Clearfix
  */

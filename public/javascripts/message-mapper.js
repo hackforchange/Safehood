@@ -43,11 +43,32 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
       // Signup location map
       var $LocationInput = $('.location-input');
       if ($LocationInput.length) {
+        var $LocationLabel = $('.location-label');
+        
+        // Start map
         $LocationInput.after('<div id="location-map"></div>');
         var map = new L.Map('location-map');
         var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
         var center = new L.LatLng(37.77917, -122.390903);
         map.setView(center, 14).addLayer(cloudmade);
+        
+        // Add geolocating link
+        if (typeof Modernizr != 'undefined' && Modernizr.geolocation) {
+          $LocationLabel.after('<a class="geolocate-me" href="#geolocate">Find me</a>');
+          $('.geolocate-me').click(function() {
+            
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var found = new L.LatLng(position.coords.latitude, position.coords.longitude);
+              var marker = new L.Marker(found);
+              map.addLayer(marker);
+              map.setView(found, 14);
+            }, function(error) {
+              alert('Could not find you, trying typing in an address or intersection.');
+            }, {enableHighAccuracy: true});
+            
+            return false;
+          });
+        }
       }
     
       // Message explorer map
