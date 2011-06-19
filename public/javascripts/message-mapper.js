@@ -43,12 +43,13 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
       // Signup location map
       var $LocationInput = $('#user_location');
       if ($LocationInput.length) {
+        var marker;
         var $LocationLabel = $('.location-label');
         var $LocationHelp = $('.location-help');
         
-        // Start map
-        
-        $LocationHelp.show().after('<div id="location-map"></div>');
+        // Start input map.  Update help since we have mapping capabilities.
+        $LocationHelp.html('Type in an address or cross street and we\'ll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong>');
+        $LocationHelp.after('<div id="location-map"></div>');
         var map = new L.Map('location-map');
         var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
         var center = new L.LatLng(38, -97);
@@ -56,11 +57,15 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
         
         // Add geolocating link
         if (typeof Modernizr != 'undefined' && Modernizr.geolocation) {
-          $LocationLabel.after('<a class="geolocate-me" href="#geolocate">Find me</a>');
+          $LocationHelp.html('Use the <strong>Find Me</strong> and we\'ll try to automatically find you.  Or type in an address or cross street and we\'ll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong>');
+          $LocationLabel.after('<a class="geolocate-me" href="#geolocate">Auto find me</a>');
           $('.geolocate-me').click(function() {
             navigator.geolocation.getCurrentPosition(function(position) {
+              if (marker) {
+                map.removeLayer(marker);
+              }
               var found = new L.LatLng(position.coords.latitude, position.coords.longitude);
-              var marker = new L.Marker(found, { 'draggable': true });
+              marker = new L.Marker(found, { 'draggable': true });
               map.addLayer(marker);
               map.setView(found, 14);
               
@@ -92,7 +97,7 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
     
       // Message explorer map
       if ($('#map-messages').length) {
-        $.getJSON("/messages/", function(data){
+        $.getJSON("/messages/", function(data) {
           var map = new L.Map('map-messages');
           var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
           var center = new L.LatLng(37.77917, -122.390903);
@@ -101,7 +106,7 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
           markers = [];
           for (var i in data) {
             msg = data[i].message;
-            if (msg){
+            if (msg) {
               markers[i] = new L.Marker(new L.LatLng(msg.lat, msg.lon));
               map.addLayer(markers[i]);
               markers[i].bindPopup(msg.message);

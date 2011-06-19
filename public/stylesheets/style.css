@@ -63,7 +63,7 @@ form input {
   float: left;
   }
 
-#cool-blurb p {
+#cool-blurb {
   float: right;
   width: 500px;
   margin: 0;
@@ -119,11 +119,14 @@ form input {
   
 #footer-links {
   margin: 0;
+  padding: 0;
   }
   
 #footer-links li {
   display: inline;
   list-style: none;
+  padding: 0;
+  margin: 0;
   }
   
 #footer-links li a {
@@ -143,6 +146,15 @@ form input {
 #footer-links li a:hover {
   border: 2px solid #025744;
   background-color: rgba(2,87,68,.3);
+  }
+  
+#powered-by {
+  font-family: Prociono, Palatino, serif;
+  
+  }
+  
+#powered-by img {
+  padding-top: 20px;
   }
 
 /**
@@ -230,12 +242,14 @@ a.geolocate-me {
   width: 100px;
   float: right;
   text-align: right;
+  background: url('/images/geolocation_icon.png') center right no-repeat;
+  padding-right: 20px;
+  height: 16px;
 }
 
 .location-help {
   font-size: .7em;
   margin-bottom: 5px;
-  display: none;
 }
 
 /**

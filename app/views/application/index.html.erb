@@ -1,7 +1,7 @@
 <div id="column-1" class="column">
   <div class="module clearfix">
     <h2>Get neighborhood SMS alerts</h2>
-    <p>Begin tackling safety issues in your neighborhood today. Subscribe to real-time texts from your neighbors when they notice safety threats or problems in your neighborhood.</p>
+    <p>Begin tackling safety issues in your neighborhood today. Subscribe to <strong>anonymous</strong> real-time texts from your neighbors when they notice safety threats or problems in your neighborhood.</p>
     
     <%= form_for :user, :url=>create_user_path, :html=>{:class=> "subscribe-form"} do |f|%>
       <%= f.label :phone, "Your Phone", :class=>"phone-label" %>
@@ -10,7 +10,7 @@
       <%= f.label :location, "Your Location", :class=>"location-label" %>
       <%= f.text_field :location, :size=>45, :class=>"location-input" %>
       
-      <div class="location-help">Use the <strong>Find Me</strong> and we'll try to automatically find you.  Or type in an address or cross street and we'll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong></div>
+      <div class="location-help">Enter your location; this can be your address or cross street or block number.  <strong>We will never publish your address.</strong></div>
       
       <%= f.hidden_field :lat %><%= f.hidden_field :lon %>
       

@@ -10,6 +10,8 @@ Safehood::Application.routes.draw do
   post "create_user", :to=> 'application#create_user'
   get 'about' => 'application#about'
   get 'privacy' => 'application#privacy'
+  get 'commands' => 'application#commands'
+  
   
   root :to=> "application#index"
 end
