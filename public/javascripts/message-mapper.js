@@ -101,9 +101,11 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
           markers = [];
           for (var i in data) {
             msg = data[i].message;
-            markers[i] = new L.Marker(new L.LatLng(msg.lat, msg.lon));
-            map.addLayer(markers[i]);
-            markers[i].bindPopup(msg.message);
+            if (msg){
+              markers[i] = new L.Marker(new L.LatLng(msg.lat, msg.lon));
+              map.addLayer(markers[i]);
+              markers[i].bindPopup(msg.message);
+            }
           }
         });
       }
