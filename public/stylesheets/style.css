@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #fff282;
+  background: #8e3c1b url('../images/bricks.jpg') no-repeat;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12pt;
   }
@@ -14,16 +14,18 @@ a {
   
 h1, h2, h3 {
   font-family: Prociono, Palatino, serif;
+  margin: 0;
   }
   
 #container {
   width: 900px;
   margin: 0 auto;
+  background-color: rgba(255,255,255,.8);
+  padding: 0 15px 30px 15px;
   }
   
 #masthead {
-/*  background-color: rgba(255,255,255,.5);*/
-  padding: 3px 10px;
+  padding: 5px 10px;
   height: 80px;
   }
   
@@ -41,18 +43,43 @@ h1, h2, h3 {
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
   border-radius: 20px;
-  border: 2px solid white;
-  background-color: rgba(255,255,255,.5);
+  background-color: rgba(251,233,81,.5);
+  border: 2px solid #fbe951;
   }
   
 #content {
   clear: both;
+  padding-top: 5px;
+  }
+  
+.column {
+  padding: 0 10px;
+  margin: 5px 0;
+  width: 400px;
+  }
+
+#column-1 {
+  float: left;
+  }
+  
+#column-2 {
+  margin-left: 430px;
+  }
+  
+.module {
+/*  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;*/
+  border: 4px solid white;
+  background-color: rgba(255,255,255,.7);
+  padding: 5px 10px;
   }
 
 #footer {
   clear: both;
   text-align: center;
   margin: 0 auto;
+  padding-top: 20px;
   }
   
 #footer-links {
@@ -76,6 +103,11 @@ h1, h2, h3 {
   color: black;
   font-family: Prociono, Palatino, serif;
   font-size: 1.3em;
+  }
+  
+#footer-links li a:hover {
+  border: 2px solid black;
+  background-color: rgba(0,0,0,.2);
   }
 
 /**

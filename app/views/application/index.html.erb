@@ -1,1 +1,18 @@
-this is the app index
+<div id="column-1" class="column">
+  <div class="module">
+  <h2>Subscribe to neighborhood SMS alerts:</h2>
+  <p>Is that guy on the corner a drug dealer? Give us your phone number and location and receive texts from your neighbors when they notice safety threats or problems in your neighborhood.</p>
+  <form>
+  <input name="phone-number" type="text" value="Your phone #" />
+  <input name="location" type="text" value="Your location (either your address--we won't share it!--or a nearby street intersection)" />
+  <input name="Sign up!" type="submit" />
+  </form>
+  </div>
+</div>
+
+<div id="column-2" class="column">
+  <div class="module">
+<%= link_to 'New Message', new_message_path %>
+  </div>
+
+</div>
