@@ -212,7 +212,7 @@ form.subscribe-form .subscribe-submit:active {
 }
 
 #location-map {
-  width: 360px;
+  width: auto;
   height: 200px;
   margin-bottom: 10px;
 }
@@ -222,6 +222,13 @@ a.geolocate-me {
   width: 100px;
   float: right;
   text-align: right;
+}
+
+/**
+ * Map controls
+ */
+.leaflet-container .leaflet-control-attribution {
+  font-size: .6em;
 }
 
 /**
