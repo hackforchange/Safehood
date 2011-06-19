@@ -134,7 +134,6 @@ class MessagesController < ApplicationController
   end
   
   def handle_unsubscribe(message, number)
-    #todo
     @user=User.find_by_phone(number)
     if @user.nil?
       message "You aren't subscribed to the system on this phone number", number
@@ -146,7 +145,29 @@ class MessagesController < ApplicationController
   end
   
   def handle_change_address(message,number)
-    #todo
+    @user=User.find_by_phone(number)
+    if @user.nil?
+      message "You aren't subscribed to the system on this phone number", number
+      return
+    end
+    
+    address=message
+    res=Geocoder.search(address)
+    
+    if res.empty?
+      message "Sorry, we couldn't find that where that is. Please make sure you include the city or zip code", number
+      return
+    end
+    
+    lat,lon = res[0].coordinates
+    @user.update_attributes(:lat=>lat,:lon=>lon,:location=>address)
+    
+    unless @user.save
+      message "Sorry, there was an error with changing", number
+      return
+    end
+    
+    message "Address changed!", number
   end
   
   def message(msg,number)
