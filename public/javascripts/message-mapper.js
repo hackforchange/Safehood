@@ -35,16 +35,27 @@ var testData = [
 
 if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
   jQuery.noConflict();
+  var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/90480db8a5a4470d87c3c21800806e02/997/256/{z}/{x}/{y}.png';
+  var cloudmadeAttrib = 'Map data &copy; 2011 OSM, Imagery &copy; 2011 CloudMade';
   
   (function($) {
     $(document).ready(function() {
+      // Signup location map
+      var $LocationInput = $('.location-input');
+      if ($LocationInput.length) {
+        $LocationInput.after('<div id="location-map"></div>');
+        var map = new L.Map('location-map');
+        var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
+        var center = new L.LatLng(37.77917, -122.390903);
+        map.setView(center, 14).addLayer(cloudmade);
+      }
+    
+      // Message explorer map
       if ($('#map-messages').length) {
         var map = new L.Map('map-messages');
-        var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/90480db8a5a4470d87c3c21800806e02/997/256/{z}/{x}/{y}.png';
-        var cloudmadeAttrib = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade';
         var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
-        var london = new L.LatLng(37.77917, -122.390903);
-        map.setView(london, 14).addLayer(cloudmade);
+        var center = new L.LatLng(37.77917, -122.390903);
+        map.setView(center, 14).addLayer(cloudmade);
         
         markers = [];
         for (var i in testData) {
