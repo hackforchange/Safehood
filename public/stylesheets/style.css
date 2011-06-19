@@ -1,8 +1,79 @@
+@font-face { font-family: Prociono; src: url('../fonts/Prociono.otf'); } 
+
 body {
   margin: 0;
   padding: 0;
+  background-color: #fff282;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12pt;
   }
   
-#logo {
+a {
+  color: #0b8a6e;
+  }
+  
+h1, h2, h3 {
+  font-family: Prociono, Palatino, serif;
+  }
+  
+#container {
+  width: 900px;
+  margin: 0 auto;
+  }
+  
+#masthead {
+/*  background-color: rgba(255,255,255,.5);*/
+  padding: 3px 10px;
   height: 80px;
+}
+  
+#logo {
+  height: 90px;
+  float: left;
+  }
+
+#cool-blurb p {
+  float: right;
+  width: 500px;
+  margin: 0;
+  font-size: 1em;
+  padding: 12px 27px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  border: 2px solid white;
+  background-color: rgba(255,255,255,.5);
+  }
+  
+#content {
+  clear: both;
+  }
+
+#footer {
+  clear: both;
+  text-align: center;
+  margin: 0 auto;
+  }
+  
+#footer-links {
+  margin: 0;
+  }
+  
+#footer-links li {
+  display: inline;
+  list-style: none;
+  }
+  
+#footer-links li a {
+  padding: 10px 20px;
+  margin-right: 5px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  background-color: rgba(11,138,110,.3);
+  border: 2px solid #0b8a6e;
+  text-decoration: none;
+  color: black;
+  font-family: Prociono, Palatino, serif;
+  font-size: 1.3em;
   }
