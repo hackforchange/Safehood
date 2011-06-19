@@ -135,6 +135,14 @@ class MessagesController < ApplicationController
   
   def handle_unsubscribe(message, number)
     #todo
+    @user=User.find_by_phone(number)
+    if @user.nil?
+      message "You aren't subscribed to the system on this phone number", number
+      return
+    end
+    
+    @user.destroy
+    message "You have been removed from the system", number
   end
   
   def handle_change_address(message,number)
