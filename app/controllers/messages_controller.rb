@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def self.get_message_list(params)
-    Message.select([:created_at, :lat, :lon, :message]).all
+    Message.safe_fields.all
   end
   
   def index
@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
   # GET /messages/1
   # GET /messages/1.xml
   def show
-    @message = Message.find(params[:id])
+    @message = Message.safe_fields.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

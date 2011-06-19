@@ -5,4 +5,8 @@ class Message < ActiveRecord::Base
   def self.backlogged(phone_number)
     where("user_id is null AND phone = ? AND created_at > ?",phone_number,Date.yesterday)
   end
+  
+  def self.safe_fields
+    select([:created_at, :lat, :lon, :message])
+  end
 end
