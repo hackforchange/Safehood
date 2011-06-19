@@ -1,6 +1,6 @@
 // Mapping logic
 
-var testData = [
+/*var testData = [
   {
     'id': '8374987349873',
     'message': 'This is a test message',
@@ -31,7 +31,7 @@ var testData = [
     'hashed_ip': '#ndj98fehreef9fjsdf09',
     'timestamp': new Date()
   }
-];
+];*/
 
 if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
   jQuery.noConflict();
@@ -92,22 +92,20 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
     
       // Message explorer map
       if ($('#map-messages').length) {
-        var map = new L.Map('map-messages');
-        var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
-        var center = new L.LatLng(37.77917, -122.390903);
-        map.setView(center, 14).addLayer(cloudmade);
-        
-        markers = [];
-        for (var i in testData) {
-          testData[i].lat = (Math.random() > .5) ? testData[i].lat + (Math.random() * .005) :
-            testData[i].lat - (Math.random() * .005);
-          testData[i].lon = (Math.random() > .5) ? testData[i].lon + (Math.random() * .005) :
-            testData[i].lon - (Math.random() * .005);
+        $.getJSON("/messages/", function(data){
+          var map = new L.Map('map-messages');
+          var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
+          var center = new L.LatLng(37.77917, -122.390903);
+          map.setView(center, 14).addLayer(cloudmade);
           
-          markers[i] = new L.Marker(new L.LatLng(testData[i].lat, testData[i].lon));
-          map.addLayer(markers[i]);
-          markers[i].bindPopup(testData[i].message);
-        }
+          markers = [];
+          for (var i in data) {
+            msg = data[i].message;
+            markers[i] = new L.Marker(new L.LatLng(msg.lat, msg.lon));
+            map.addLayer(markers[i]);
+            markers[i].bindPopup(msg.message);
+          }
+        });
       }
       
       // Geocoding function
