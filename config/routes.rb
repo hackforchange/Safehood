@@ -6,9 +6,10 @@ Safehood::Application.routes.draw do
     end
   end
   
-  root :to=> "application#index"
-  post "create_user", :to=> 'application#create_user'
   
-  match 'about' => 'application#about'
-  match 'privacy' => 'application#privacy'
+  post "create_user", :to=> 'application#create_user'
+  get 'about' => 'application#about'
+  get 'privacy' => 'application#privacy'
+  
+  root :to=> "application#index"
 end
