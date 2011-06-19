@@ -1,23 +1,11 @@
 <h1>Explore messages</h1>
 
-<!--
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Message</th>
-    <th>Actions</th>
-  </tr>
-
-  <% @messages.each do |message| %>
-    <tr>
-      <td></td>
-      <td><%= link_to 'Show', message %></td>
-      <td><%= link_to 'Destroy', message, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
--->
+<div id="list-messages">
+  <div class="message">
+    <% @messages.each do |message| %>
+      <%= link_to 'Show', message %>
+    <% end %>
+  </div>
+</div>
 
 <div id="map-messages"></div>
-
-<%= link_to 'New Message', new_message_path %>
