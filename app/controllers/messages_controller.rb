@@ -91,11 +91,14 @@ class MessagesController < ApplicationController
   def handle_signup(message, number)
   #TODO: do signup process
     address = message.sub(/^signup:/,'')
-    res=MultiGeocoder.geocode(address)
+    res=Geocoder.search(address)
     
-    @user = User.new(:phone=>number,:location=>address,:lat=>res.lat ,:lon=>res.lon , :radius=>'0.5', :active=>true)
+    @user = if res
+      lat,lon = res[0].coordinates
+      User.new(:phone=>number,:location=>address,:lat=>lat ,:lon=>lon , :radius=>'0.5', :active=>true)
+    end
     
-    unless @user.save
+    unless @user.present? && @user.save
       $outbound_flocky.message $app_phone, "Sorry, there was an error with signup", number
       return
     end
