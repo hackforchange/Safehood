@@ -38,10 +38,11 @@ form input {
   }
   
 #container {
-  width: 900px;
+  width: 870px;
   margin: 0 auto;
-  background-color: rgba(255,255,255,.8);
-  padding: 0 15px 30px 15px;
+  background: url('../images/complete-container-bg.png') repeat-y;
+/*  background-color: rgba(255,255,255,.8);*/
+  padding: 0 45px 30px 45px;
   }
   
 #masthead {
@@ -99,7 +100,8 @@ form input {
   clear: both;
   text-align: center;
   margin: 0 auto;
-  padding-top: 20px;
+  padding-top: 40px;
+  clear: both;
   }
   
 #footer-links {
@@ -191,7 +193,8 @@ form.subscribe-form input {
 form.subscribe-form .subscribe-submit {
   width: 100px;
   float: right;
-  background-color: rgb(11, 138, 110);
+  background-color: rgba(11, 138, 110,.3);
+  border: 1px solid #0b8a6e;
   margin-bottom: 2px;
   }
 
