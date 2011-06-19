@@ -25,6 +25,18 @@ h1, h2, h3 {
   margin: 0;
   }
   
+form {
+  padding: 5px 0;
+  }
+  
+.inline-form-field {
+  display: inline;
+  }
+  
+form input {
+  display: block;
+  }
+  
 #container {
   width: 900px;
   margin: 0 auto;
