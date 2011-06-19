@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
     m=m.textsearch(params[:q]) if params[:q]
     m=m.where("created_at >= ?", params[:date_min]) if params[:date_min]
     m=m.where("created_at <= ?", params[:date_max]) if params[:date_max]
-    params[:per_page] = [params[:per_page].to_i,1000].min if params[:per_page]
+    params[:per_page] = params[:per_page].nil? ? Message.per_page : [params[:per_page].to_i,1000].min
     m.paginate(:page=>params[:page],:per_page=>params[:per_page],:order=>"created_at DESC")
   end
   
