@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-  has_many :messages
+  has_many :messages, :dependent=>:nullify
   acts_as_mappable :lng_column_name => :lon, :units=>:km
+  validates_uniqueness_of :phone
   #assume a maximum radius of 1km
   MAXIMUM_RADIUS = 1
   

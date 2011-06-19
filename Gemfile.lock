@@ -41,6 +41,7 @@ GEM
     crack (0.1.8)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    geocoder (1.0.1)
     geokit (1.5.0)
     geokit-rails (1.1.4)
       geokit (>= 1.5.0)
@@ -99,6 +100,7 @@ PLATFORMS
 
 DEPENDENCIES
   flocky!
+  geocoder
   geokit
   geokit-rails
   rails (= 3.0.6)

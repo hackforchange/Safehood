@@ -8,4 +8,6 @@ Safehood::Application.routes.draw do
   match "messages/voice", :to=>"messages#voice"
   
   root :to=> "application#index"
+  match 'about' => 'application#about'
+  match 'privacy' => 'application#privacy'
 end

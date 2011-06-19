@@ -1,26 +1,51 @@
 <div id="column-1" class="column">
-  <div class="module">
-  <h2>Get neighborhood SMS alerts:</h2>
-  <p>Is that guy on the corner a drug dealer? Give us your phone number and location and receive texts from your neighbors when they notice safety threats or problems in your neighborhood.</p>
-  <form>
-  Your phone #: <input class="inline-form-field" name="phone-area-code" type="text" size=3/><input class="inline-form-field" name="phone-first-three" type="text" size=3/><input class="inline-form-field" name="phone-last-four" type="text" size=4/><br/>
-  Your location: <input name="location" type="text" size="45" value="Either your address--we won't share it!--or a nearby intersection" />
-  <input value="Sign up!" type="submit" />
-  </form>
+  <div class="module clearfix">
+    <h2>Get neighborhood SMS alerts:</h2>
+    <p>Is that guy on the corner a drug dealer? Give us your phone number and location and receive texts from your neighbors when they notice safety threats or problems in your neighborhood.</p>
+    
+    <form class="subscribe-form">
+      <label class="phone-label">Your phone #</label>
+      <input class="phone-input" name="phone" type="text" size="10" value="" />
+      
+      <label class="location-label">Your location</label>
+      <input class="location-input" name="location" type="text" size="45" value="" />
+      <div class="location-help">Use the <strong>Find Me</strong> and we'll try to automatically find you.  Or type in an address or cross street and we'll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong></strong></div>
+      <input name="location-lat" type="hidden" />
+      <input name="location-lon" type="hidden" />
+      
+      <input class="subscribe-submit" value="Sign up!" type="submit" />
+    </form>
   </div>
 </div>
 
 <div id="column-2" class="column">
   <div class="module">
     <h2>Recent messages from Oakland, CA:</h2>
-    <div id="list-messages">
-      <div class="message">
-          <% if false %><% @messages.each do |message| %>
-            <%= link_to 'Show', message %>
-          <% end %> <% end %>
+      <div class="messages-explore-container clearfix">
+        <ul id="list-messages">
+          <!--<li class="message">
+            <% @messages.each do |message| %>
+              <%= link_to 'Show', message %>
+            <% end %>
+          </li>-->
+          <li id="message-647868468746" class="message">
+            <div class="message-date">10 minutes ago</div>
+            <p>There's a guy down the street selling drugs.  Maybe a picture would go here.</p>
+          </li>
+          <li id="message-45454" class="message">
+            <div class="message-date">3 hours ago</div>
+            <p>The house on Main St is really run down.</p>
+          </li>
+          <li id="message-2213131" class="message">
+            <div class="message-date">2 days ago</div>
+            <p>short.</p>
+          </li>
+          <li id="message-678999" class="message">
+            <div class="message-date">2 days ago</div>
+            <p>this is a super long message.  I am not even sure someone cold send something this long, but maybe.  lets hope we handle this well.  its hard to say, really, i mean what is going to happen.  you've got a thug.</p>
+          </li>
+        </li>
       </div>
-    </div>
     <%= link_to 'Add your own message', new_message_path %>
   </div>
-
 </div>

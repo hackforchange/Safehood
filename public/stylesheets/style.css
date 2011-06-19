@@ -16,8 +16,12 @@ a:hover, a:active {
   color: #025744;
   }
   
+a img {
+  border: none;
+  }
+  
 p {
-  margin: 2px 0;
+  margin: 5px 0;
   }
   
 h1, h2, h3 {
@@ -38,10 +42,11 @@ form input {
   }
   
 #container {
-  width: 900px;
+  width: 870px;
   margin: 0 auto;
-  background-color: rgba(255,255,255,.8);
-  padding: 0 15px 30px 15px;
+  background: url('../images/complete-container-bg.png') repeat-y;
+/*  background-color: rgba(255,255,255,.8);*/
+  padding: 0 45px 30px 45px;
   }
   
 #masthead {
@@ -86,6 +91,10 @@ form input {
   margin-left: 430px;
   }
   
+#single-column {
+  width: 820px;
+  }
+  
 .module {
 /*  -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
@@ -99,7 +108,8 @@ form input {
   clear: both;
   text-align: center;
   margin: 0 auto;
-  padding-top: 20px;
+  padding-top: 40px;
+  clear: both;
   }
   
 #footer-links {
@@ -134,14 +144,97 @@ form input {
  * Message explorer
  */
 .messages-explore-container {
-  width: 900px;
+  width: auto;
   margin-bottom: 40px;
-}
+  }
+  
 #map-messages {
   height: 300px;
   width: 550px;
   float: right;
-  margin-left: 20px;
+  }
+  
+ul#list-messages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 340px;
+  } 
+
+ul#list-messages li {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: rgb(33, 33, 33);
+  background-color: rgba(33, 33, 33, 0.4);
+  }
+  
+ul#list-messages li .message-date {
+  width: 100px;
+  font-weight: bold;
+  font-size: .8em;
+  float: right;
+  margin: 5px 0 5px 5px;
+  text-align: right;
+  }
+  
+/**
+ * Front subscribe form.
+ */
+form.subscribe-form label {
+  margin: 5px 0 2px 0;
+  font-weight: bold;
+  font-size: .8em;
+  }
+
+form.subscribe-form input {
+  margin: 2px 0 20px 0;
+  padding: 5px;
+  font-size: 1.2em;
+  border: 1px solid #888888;
+  background-color: #BBBBBB;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  width: 360px;
+  }
+
+form.subscribe-form .subscribe-submit {
+  width: 100px;
+  float: right;
+  background-color: rgba(11, 138, 110,.3);
+  border: 1px solid #0b8a6e;
+  margin-bottom: 2px;
+  }
+
+form.subscribe-form .subscribe-submit:hover,
+form.subscribe-form .subscribe-submit:active {
+  background-color: rgb(111, 238, 210);
+}
+
+#location-map {
+  width: auto;
+  height: 200px;
+  margin-bottom: 10px;
+}
+
+a.geolocate-me {
+  font-size: .8em;
+  width: 100px;
+  float: right;
+  text-align: right;
+}
+
+.location-help {
+  font-size: .7em;
+  margin-bottom: 5px;
+  display: none;
+}
+
+/**
+ * Map controls
+ */
+.leaflet-container .leaflet-control-attribution {
+  font-size: .6em;
 }
 
 /**
