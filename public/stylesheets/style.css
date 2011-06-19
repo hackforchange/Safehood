@@ -235,6 +235,27 @@ a.geolocate-me {
   height: 16px;
 }
 
+a.geolocate-address {
+  font-size: .8em;
+  width: 100px;
+  display: block;
+  text-align: center;
+  margin-left: 240px;
+  background-color: #BBBBBB;
+  padding: 3px 5px;
+  margin-top: -20px;
+  margin-bottom: 3px;
+  border-right: 1px solid #555555;
+  border-left: 1px solid #555555;
+  border-bottom: 1px solid #555555;
+  border-bottom-right-radius: 5px;
+  -moz-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+}
+
 .location-help {
   font-size: .7em;
   margin-bottom: 5px;
