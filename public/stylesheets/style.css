@@ -166,6 +166,39 @@ ul#list-messages li .message-date {
   margin: 5px 0 5px 5px;
   text-align: right;
   }
+  
+/**
+ * Front subscribe form.
+ */
+form.subscribe-form label {
+  margin: 5px 0 2px 0;
+  font-weight: bold;
+  font-size: .8em;
+  }
+
+form.subscribe-form input {
+  margin: 2px 0 20px 0;
+  padding: 5px;
+  font-size: 1.2em;
+  border: 1px solid #888888;
+  background-color: #BBBBBB;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  width: 360px;
+  }
+
+form.subscribe-form .subscribe-submit {
+  width: 100px;
+  float: right;
+  background-color: rgb(11, 138, 110);
+  margin-bottom: 2px;
+  }
+
+form.subscribe-form .subscribe-submit:hover,
+form.subscribe-form .subscribe-submit:active {
+  background-color: rgb(111, 238, 210);
+}
 
 /**
  * Clearfix
