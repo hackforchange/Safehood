@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.xml
   def self.get_message_list(params)
-    Message.safe_fields.all
+    Message.safe_fields.paginate(:page=>params[:page],:order=>"created_at DESC")
   end
   
   def index

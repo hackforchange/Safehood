@@ -11,6 +11,7 @@ gem 'sqlite3'
 gem 'geokit'
 gem 'geokit-rails'
 gem 'geocoder'
+gem 'will_paginate'
 
 # Use unicorn as the web server
 # gem 'unicorn'
