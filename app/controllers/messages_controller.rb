@@ -73,6 +73,11 @@ class MessagesController < ApplicationController
         return
       end
     end
+    
+    if m=params[:message].match(/^#\w*/)
+      message "Sorry, unrecognized command '#{m[0]}'. Text #help for valid commands",params[:origin_number]
+      return
+    end
 
     #not signup, regular message
     @user = User.find_by_phone(params[:origin_number])
