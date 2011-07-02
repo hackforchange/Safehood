@@ -66,7 +66,7 @@ class MessagesController < ApplicationController
     params[:incoming_number] = $1 if params[:incoming_number]=~/^1(\d{10})$/
     params[:origin_number] = $1 if params[:origin_number]=~/^1(\d{10})$/
     
-    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\s_]*address","change_address"],["help"],["nyan"],["num"],["mute"],["unmute"],["confirm"]]
+    commands = [["signup"],["unsubscribe"],["removeme","unsubscribe"],["change[\s_]*address","change_address"],["help"],["nyan"],["num"],["mute"],["unmute"],["confirm"],["crime"]]
     commands.each do |c|
       pattern = c.first
       function_name = "handle_#{c.last}".to_sym
@@ -137,7 +137,7 @@ class MessagesController < ApplicationController
     end
     
     if res.empty?
-      message "Sorry, we couldn't find that where that is. Please make sure you include the city or zip code", number
+      message "Sorry, we couldn't find where that is. Please make sure you include the city or zip code", number
       return
     end
     
@@ -242,5 +242,59 @@ class MessagesController < ApplicationController
     puts "sending '#{msg}' to #{number}"
     $outbound_flocky.message $app_phone, msg, number
   end
+  
+  # Crimespotter stuff goes after here
+  def handle_crime(message,number)
+    address=message
+    res=Geocoder.search(address)
+    if res.empty?
+      message "Sorry, we couldn't find where that is. Please make sure you include the city or zip code", number
+      return
+    else
+      end_date = Date.today
+      # by default, look for last month of crimes
+      begin_date = end_date.prev_month
+      lat,lon = res[0].coordinates
+      point = Geokit::LatLng.new(lat,lon)
+      # by default, get crime for within 1km of location
+      b = Geokit::Bounds.from_point_and_radius(point,1,:units=>:km)
+      baseUrl = "http://oakland.crimespotting.org/crime-data?format=json&bbox=" + b.sw.lng.to_s + "," + b.sw.lat.to_s + "," + b.ne.lng.to_s + "," + b.ne.lat.to_s + "&dstart=" + begin_date.to_s + "&dend=" + end_date.to_s
+      url = URI.parse(baseUrl)
+      json_response = JSON.parse(Net::HTTP.get_response(url).body)
+      crimes = json_response["features"]
+      # 18 chars
+      crime_report = "Crime last month: "
+      crimes_by_type = {}
+      crimes.each do |crime|
+        # if we haven't seen this type of crime yet, add to hash and set count to 1
+        crime_type = crime["properties"]["crime_type"]
+        unless crimes_by_type[crime_type]
+          crimes_by_type[crime_type] = 1
+        # if we have seen it, increase the count
+        else
+          crimes_by_type[crime_type] = crimes_by_type[crime_type] + 1
+        end
+      end
+      sorted_crime_types = crimes_by_type.sort_by { |x, y| [ -y, x] }
+      while sorted_crime_types[0]
+        type = sorted_crime_types.shift
+        summary = type.last.to_s + " " + type.first + "\n"
+        # 141 minus 19 char for remainder message
+        if crime_report.length + summary.length < 122
+          crime_report << summary
+        # if it isn't going to fit...
+        else
+          remainder = type.last
+          # go through the rest of the list
+          while sorted_crime_types[0]
+            remaining_type = sorted_crime_types.shift
+            remainder = remainder + remaining_type.last
+          end
+          crime_report << remainder.to_s + " other incidents"
+          break
+        end
+      end
+      message crime_report,number
+    end
   
 end
