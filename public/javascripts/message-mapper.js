@@ -121,7 +121,7 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
         
         // Add geolocating link
         if (typeof Modernizr != 'undefined' && Modernizr.geolocation) {
-          $('h1').before('<a class="geolocate-me" href="#geolocate">Auto find me</a>');
+          $('h1').before('<a class="geolocate-me" href="#geolocate">Auto find me / Encuentrame</a>');
           $('.geolocate-me').click(function() {
             navigator.geolocation.getCurrentPosition(function(position) {
               var found = new L.LatLng(position.coords.latitude, position.coords.longitude);
