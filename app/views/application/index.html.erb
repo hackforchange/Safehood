@@ -1,20 +1,21 @@
 <div id="column-1" class="column">
   <div class="module clearfix">
-    <h2>Get neighborhood SMS alerts</h2>
+    <h2>Get neighborhood SMS alerts / Obtener barrio alertas de SMS </h2>
     <p>Begin tackling safety issues in your neighborhood today. Subscribe to <strong>anonymous</strong> real-time texts from your neighbors when they notice safety threats or problems in your neighborhood.</p>
-    
+    <hr>
+    <p>Suscr&#237bete a <strong>an&#243;nimos</strong> en tiempo real de SMS de sus vecinos cuando se dan cuenta de las amenazas de seguridad o problemas en su vecindario.</p>
     <%= form_for :user, :url=>create_user_path, :html=>{:class=> "subscribe-form"} do |f|%>
-      <%= f.label :phone, "Your Phone", :class=>"phone-label" %>
+      <label class="phone-label">Your Phone / Tel&#233;fono (incluya el c&#243;digo de &#225;rea)</label>
       <%= f.text_field :phone, :size=>10, :class=>"phone-input" %>
       
-      <%= f.label :location, "Your Location", :class=>"location-label" %>
+      <label class="location-label">Your Location / Direcci&#243;n</label>
+      <br/><br/>
       <%= f.text_field :location, :size=>45, :class=>"location-input" %>
       
       <div class="location-help">Enter your location; this can be your address or cross street or block number.  <strong>We will never publish your address.</strong></div>
       
       <%= f.hidden_field :lat %><%= f.hidden_field :lon %>
-      
-      <%= f.submit "Sign Up!", :class=>"subscribe-submit" %>
+      <input id="user_submit" class="subscribe-submit" type="submit" value="Sign Up! / Reg&#237strate!" name="commit">
 
     <% end %>
   </div>
@@ -22,7 +23,7 @@
 
 <div id="column-2" class="column">
   <div class="module">
-    <h2>Recent messages</h2>
+    <h2>Recent messages / Mensajes recientes</h2>
       <div class="messages-explore-container clearfix">
         <ul id="list-messages">
           <%= render :partial=>"messages/message", :collection => @messages %>
