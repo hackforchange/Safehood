@@ -244,15 +244,16 @@ class MessagesController < ApplicationController
   end
   
   # Crimespotter stuff goes after here
-  def handle_crime(message,number)
-    address=message
+  def handle_crime(address,number)
     res=Geocoder.search(address)
+    # did we get a readable address?
     if res.empty?
       message "Sorry, we couldn't find where that is. Please make sure you include the city or zip code", number
       return
+    # awesome, we've got an address.
     else
+      # want reports from the last month
       end_date = Date.today
-      # by default, look for last month of crimes
       begin_date = end_date.prev_month
       lat,lon = res[0].coordinates
       point = Geokit::LatLng.new(lat,lon)
