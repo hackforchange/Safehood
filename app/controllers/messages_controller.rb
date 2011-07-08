@@ -298,4 +298,5 @@ class MessagesController < ApplicationController
 #       print crime_report
       message crime_report,number
     end
+  end
 end
