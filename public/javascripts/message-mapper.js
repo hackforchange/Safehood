@@ -14,7 +14,7 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
         var $LocationHelp = $('.location-help');
         
         // Start input map.  Update help since we have mapping capabilities.
-        $LocationHelp.html('Type in an address or cross street, then click <strong>Locate address</strong> we\'ll try to find that.  Move around the marker to make your location for more accurate.  <strong>We will never publish your address.</strong>');
+        $LocationHelp.html('Type in an address or cross street, then click <strong>Locate address</strong> we\'ll try to find that.  Move around the marker to make your location for more accurate.  <strong>We will never publish your address.</strong> / Use encuentrame y vamos a tratar de encontrar de forma autom&#225;tica. O escribir una direcci&#243;n o cruce de calles, a continuaci&#243;n, haga clic en localizar la direcci&#243;n y vamos a tratar de encontrar eso. Moverse el marcador para que su ubicaci&#243;n m&#225;s precisa. Nunca publicaremos su direcci&#243;n.');
         $LocationHelp.after('<div id="location-map"></div>');
         var map = new L.Map('location-map');
         var cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttrib});
@@ -22,7 +22,7 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
         map.setView(center, 3).addLayer(cloudmade);
         
         // Add input geolocating
-        $LocationInput.after('<a class="geolocate-address" href="#geolocate-address">Locate address</a>');
+        $LocationInput.after('<a class="geolocate-address" href="#geolocate-address">Locate address / localizar la direcci&#243;n</a>');
         $('a.geolocate-address').click(function() {
           var location = $LocationInput.val();
           localGeocode($LocationInput.val(), function(result) {
@@ -55,8 +55,8 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
         
         // Add browser geolocating link
         if (typeof Modernizr != 'undefined' && Modernizr.geolocation) {
-          $LocationHelp.html('Use the <strong>Auto find Me</strong> and we\'ll try to automatically find you.  Or type in an address or cross street, then click <strong>Locate address</strong> and we\'ll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong>');
-          $LocationLabel.after('<a class="geolocate-me" href="#geolocate">Auto find me</a>');
+          $LocationHelp.html('Use the <strong>Auto find Me</strong> and we\'ll try to automatically find you.  Or type in an address or cross street, then click <strong>Locate address</strong> and we\'ll try to find that.  Move around the marker to make your location more accurate.  <strong>We will never publish your address.</strong><br><br>Use <strong>Encuentrame</strong> y vamos a tratar de encontrar de forma autom&#225;tica. O escribir una direcci&#243;n o cruce de calles, a continuaci&#243;n, haga clic en <strong>localizar la direcci&#243;n</strong> y vamos a tratar de encontrar eso. Moverse el marcador para que su ubicaci&#243;n m&#225;s precisa. <strong>Nunca publicaremos su direcci&#243;n.</strong>');
+          $LocationLabel.after('<a class="geolocate-me" href="#geolocate">Auto find me / Encuentrame</a>');
           $('.geolocate-me').click(function() {
             navigator.geolocation.getCurrentPosition(function(position) {
               if (marker) {
@@ -121,7 +121,7 @@ if (typeof L != 'undefined' && typeof jQuery != 'undefined') {
         
         // Add geolocating link
         if (typeof Modernizr != 'undefined' && Modernizr.geolocation) {
-          $('h1').before('<a class="geolocate-me" href="#geolocate">Auto find me</a>');
+          $('h1').before('<a class="geolocate-me" href="#geolocate">Auto find me / Encuentrame</a>');
           $('.geolocate-me').click(function() {
             navigator.geolocation.getCurrentPosition(function(position) {
               var found = new L.LatLng(position.coords.latitude, position.coords.longitude);

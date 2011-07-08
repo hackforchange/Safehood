@@ -5,11 +5,11 @@ peace of mind.
 In practice this is an anonymous way for people to message their
 neighbors.
 
-## Hack for Change specific
+## Current production details:
 
-Our App's Tropo number: `(510) 221-3861
+Our App's Tropo number: (510) 221-3861
 
-Note: our Tropo scripts (for handling voice/SMS sending and receiving) live on their website. We have copies of them in /public/rb/.`
+Note: our Tropo scripts (for handling voice/SMS sending and receiving) live on their website. We have copies of them in /public/rb/.
 
 ## Environment Variables
 
