@@ -279,7 +279,7 @@ class MessagesController < ApplicationController
       sorted_crime_types = crimes_by_type.sort_by { |x, y| [ -y, x] }
       while sorted_crime_types[0]
         type = sorted_crime_types.shift
-        summary = type.last.to_s + " " + type.first + "\n"
+        summary = type.last.to_s + " " + type.first + "  "
         # 141 minus 19 char for remainder message
         if crime_report.length + summary.length < 122
           crime_report << summary
@@ -295,7 +295,7 @@ class MessagesController < ApplicationController
           break
         end
       end
+#       print crime_report
       message crime_report,number
     end
-  
 end
