@@ -277,6 +277,18 @@ class MessagesController < ApplicationController
         end
       end
       sorted_crime_types = crimes_by_type.sort_by { |x, y| [ -y, x] }
+      x = 0
+      while x < sorted_crime_types.length
+          crime_type = sorted_crime_types[x]
+          # we want to make sure serious crimes appear first
+          if crime_type.first == "MURDER" or crime_type.first == "AGGRAVATED ASSAULT" or crime_type.first == "ROBBERY" or crime_type.first == "BURGLARY"
+              summary = crime_type.last.to_s + " " + crime_type.first + "  "
+              crime_report << summary
+              # remove the record from the list
+              sorted_crime_types.delete_at(x)
+          end
+          x = x + 1
+      end
       while sorted_crime_types[0]
         type = sorted_crime_types.shift
         summary = type.last.to_s + " " + type.first + "  "
