@@ -23,12 +23,18 @@
 
 <div id="column-2" class="column">
   <div class="module">
+    <h2>Get a crime report SMS</h2>
+    <p>Curious what sorts of crimes have been reported lately near you? Moving to a new neighborhood and want to get a sense of how safe it is?</p> 
+    <p>Just text "#crime" plus an address or intersection to <strong>1-510-221-3861</strong> and receive a summarized crime report via SMS.</p>
+    <p>Note: This feature only works in Oakland so far.</p>
+    <%= link_to "More useful commands / Más comandos útiles", commands_path %>
+    
+  </div>
+  <div class="module">
     <h2>Recent messages / Mensajes recientes</h2>
       <div class="messages-explore-container clearfix">
           <div id="map-messages"></div>
-        <ul id="list-messages">
-          <%= render :partial=>"messages/message", :collection => @messages %>
-        </ul>
+        <%= link_to "See more / Ver más", messages_path %>
       </div>
     <% #= link_to 'Add your own message', new_message_path %>
   </div>
