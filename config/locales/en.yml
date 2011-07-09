@@ -2,4 +2,20 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  hello: Hello world
+  about: "About"
+  messages: "Messages"
+  command_reference: "Command Reference"
+  privacy: "Privacy"
+  
+  about_safehood: "Safehood helps members of a community communicate with each other safely and collaborate around issues of personal safety."
+  get_alerts_header: "Get neighborhood SMS alerts"
+  get_report_header: "Get crime reports via SMS"
+  homepage_alerts_text: "Begin tackling safety issues in your neighborhood today. Subscribe to <strong>anonymous</strong> real-time texts from your neighbors when they notice safety threats or problems in your neighborhood."
+  your_phone: "Your Phone"
+  your_location: "Your Location"
+  signup: "Sign up!"
+  auto_find_me: "Auto find me"
+  about_auto_find_me: "Use the Auto find Me and we'll try to automatically find you. Or type in an address or cross street, then click Locate address and we'll try to find that. Move around the marker to make your location more accurate. <strong>We will never publish your address.</strong>"
+  
+  recent_messages_header: "Recent messages"

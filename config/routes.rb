@@ -1,4 +1,7 @@
 Safehood::Application.routes.draw do
+  scope "(:locale)", :locale => /en|es/ do
+    resources :books
+  end
   resources :messages, :only=>[:index,:show,:new,:create] do
     collection do
       post "receive"
@@ -12,6 +15,6 @@ Safehood::Application.routes.draw do
   get 'privacy' => 'application#privacy'
   get 'commands' => 'application#commands'
   
-  
+  match '/:locale' => 'application#index'
   root :to=> "application#index"
 end
