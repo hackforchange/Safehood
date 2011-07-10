@@ -1,9 +1,9 @@
 <div id="single-column" class="column">
   <div class="module clearfix">
-    <h1>About us / Sobre nosotros:</h1>
-    <p><img src="/images/cyborg-badgers.png" alt="Cyborg Badgers" align="left" style="padding: 0 5px 5px 0;" />Safehood was put together by Cyborg Badgers: Aaron Bannert, Alan Palazzolo, Karen Rustad, Michelle Koeth, and Talin Salway. We developed it for use by neighborhood watch groups, both formal and informal.
-    <hr>
-    <p>Safehood fue elaborado por "Tejones Cyborg": Aaron Bannert, Alan Palazzolo, Rustad Karen, Koeth Michelle, y Salway Talin. Lo hemos desarrollado para su uso por parte de grupos de vigilancia vecinal, tanto formales como informales.</p>
-    <p>Our crimespotter data comes from <a href="http://oakland.crimespotting.org/">the Oakland Crimespotting API</a>. Check out <a href="https://github.com/hackforchange/Safehood/">our source code on Github!</a> / Nuestros datos sobre la delincuencia viene de <a href="http://oakland.crimespotting.org/">la API Crimespotters Oakland</a>. Usted puede ver <a href="https://github.com/hackforchange/Safehood/">el c&#243;digo en Github</a></p>
+    <h1><%= t :about %>:</h1>
+    <p><img src="/images/cyborg-badgers.png" alt="Cyborg Badgers" align="left" style="padding: 0 5px 5px 0;" /><%= t :about_us %>
+    <% api_link = link_to(t(:crimespotter_api), "http://oakland.crimespotting.org/") %>
+    <% github_link = link_to(t(:github).html_safe, "https://github.com/hackforchange/Safehood/") %>
+    <p><%= t :about_crimespotter_html, :api_link => api_link, :github_link => github_link %></p>
   </div>
 </div>

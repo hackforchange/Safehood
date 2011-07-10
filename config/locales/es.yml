@@ -1,19 +1,19 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
-en:
-  hello: Hello world
-  about: "About Us"
-  messages: "Messages"
-  command_reference: "Command Reference"
-  privacy: "Privacy"
+es:
+  hello: Hello world SPANISH
+  about: "Sobre nosotros"
+  messages: "Messages SPANISH"
+  command_reference: "Command Reference SPANISH"
+  privacy: "Privacy SPANISH"
   
-  about_safehood: "Safehood helps members of a community communicate with each other safely and collaborate around issues of personal safety."
-  about_us: "Safehood was put together by Cyborg Badgers: Aaron Bannert, Alan Palazzolo, Karen Rustad, Michelle Koeth, and Talin Salway. We developed it for use by neighborhood watch groups, both formal and informal."
-  about_crimespotter_html: "Our crimespotter data comes from the %{api_link}. Check out our source code on %{github_link}!"
+  about_safehood: " SPANISH Safehood helps members of a community communicate with each other safely and collaborate around issues of personal safety."
+  about_us: 'Safehood fue elaborado por "Tejones Cyborg": Aaron Bannert, Alan Palazzolo, Rustad Karen, Koeth Michelle, y Salway Talin. Lo hemos desarrollado para su uso por parte de grupos de vigilancia vecinal, tanto formales como informales.'
+  about_crimespotter_html: 'Nuestros datos sobre la delincuencia viene de %{api_link}. Usted puede ver %{github_link}'
   
-  crimespotter_api: "Oakland Crimespotting API"
-  github: "Github"
+  crimespotter_api: "la API Crimespotters Oakland"
+  github: "el c&#243;digo en Github"
   
   get_alerts_header: "Get neighborhood SMS alerts"
   get_report_header: "Get crime reports via SMS"
