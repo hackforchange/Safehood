@@ -3,12 +3,18 @@
 
 en:
   hello: Hello world
-  about: "About"
+  about: "About Us"
   messages: "Messages"
   command_reference: "Command Reference"
   privacy: "Privacy"
   
   about_safehood: "Safehood helps members of a community communicate with each other safely and collaborate around issues of personal safety."
+  about_us: "Safehood was put together by Cyborg Badgers: Aaron Bannert, Alan Palazzolo, Karen Rustad, Michelle Koeth, and Talin Salway. We developed it for use by neighborhood watch groups, both formal and informal."
+  about_crimespotter_html: "Our crimespotter data comes from the %{api_link}. Check out our source code on %{github_link}!"
+  
+  crimespotter_api: "Oakland Crimespotting API"
+  github: "Github"
+  
   get_alerts_header: "Get neighborhood SMS alerts"
   get_report_header: "Get crime reports via SMS"
   homepage_alerts_text: "Begin tackling safety issues in your neighborhood today. Subscribe to <strong>anonymous</strong> real-time texts from your neighbors when they notice safety threats or problems in your neighborhood."
