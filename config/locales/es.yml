@@ -1,0 +1,21 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hola"
+  about: "Sobre"
+  messages: "Mensajes"
+  command_reference: "Guía de comandos"
+  privacy: "Política de privacidad"
+  
+  about_safehood: "Safehood ayuda a los miembros de una comunidad comunicarse entre sí de manera segura y colaborar en torno a temas de seguridad personal."
+  get_alerts_header: "Obtener barrio alertas de SMS"
+  get_report_header: "Obtener informes del crimen vía SMS"
+  homepage_alerts_text: "Suscríbete a <strong>anónimos</strong> en tiempo real de SMS de sus vecinos cuando se dan cuenta de las amenazas de seguridad o problemas en su vecindario."
+  your_phone: "Teléfono (incluya el código de área)"
+  your_location: "Dirección"
+  signup: "Registrate!"
+  auto_find_me: "Encuentrame"
+  about_auto_find_me: "Use Encuentrame y vamos a tratar de encontrar de forma automática. O escribir una dirección o cruce de calles, a continuación, haga clic en localizar la dirección y vamos a tratar de encontrar eso. Moverse el marcador para que su ubicación más precisa. <strong>Nunca publicaremos su dirección.</strong>"
+  
+  recent_messages_header: "Mensajes recientes"
