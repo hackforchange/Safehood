@@ -1,6 +1,6 @@
 Safehood::Application.routes.draw do
   scope "(:locale)", :locale => /en|es/ do
-    resources :books
+    resources :application
   end
   resources :messages, :only=>[:index,:show,:new,:create] do
     collection do
